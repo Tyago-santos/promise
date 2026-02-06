@@ -28,15 +28,6 @@ Ele utiliza tecnologias atuais do ecossistema React para criação de interfaces
 ## 📁 Estrutura do Projeto (exemplo)
 
 ```txt
-src/
-├── components/     # Componentes reutilizáveis
-├── pages/          # Páginas da aplicação
-├── routes/         # Configuração do TanStack Router
-├── services/       # Comunicação com APIs / backend
-├── hooks/          # Hooks customizados
-├── styles/         # Estilos globais
-├── utils/          # Funções utilitárias
-└── main.tsx        # Ponto de entrada
 
 
 # Clonar o repositório
