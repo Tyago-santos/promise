@@ -1,290 +1,119 @@
-Welcome to your new TanStack app! 
+🌟 Promise - Plataforma de Relacionamento para Membros
 
-# Getting Started
+<div align="center">
+https://img.shields.io/badge/React-18.2+-61DAFB?style=for-the-badge&logo=react&logoColor=black
+https://img.shields.io/badge/Vite-5.0+-646CFF?style=for-the-badge&logo=vite&logoColor=white
+https://img.shields.io/badge/Tailwind_CSS-4.0+-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white
+https://img.shields.io/badge/TypeScript-5.3+-3178C6?style=for-the-badge&logo=typescript&logoColor=white
 
-To run this application:
+Uma plataforma de relacionamento para membros de A Igreja de Jesus Cristo dos Santos dos Últimos Dias
 
-```bash
-pnpm install
-pnpm dev
-```
+📖 Sobre • ✨ Funcionalidades • 🛠 Tecnologias • 🚀 Começando • 📁 Estrutura • 🤝 Contribuindo
 
-# Building For Production
+</div>
+📖 Sobre
+Promise é uma plataforma web desenvolvida especialmente para membros de A Igreja de Jesus Cristo dos Santos dos Últimos Dias que desejam fazer novas amizades, conhecer pessoas com valores semelhantes e construir relacionamentos significativos baseados em princípios do evangelho.
 
-To build this application for production:
+"E farei com eles um convênio de paz; será um convênio perpétuo com eles." - Ezequiel 37:26
 
-```bash
-pnpm build
-```
+🎯 Objetivo
+Criar um ambiente seguro e confiável onde membros da Igreja possam:
 
-## Testing
+Conectar-se com outros membros com interesses semelhantes
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+Formar amizades duradouras baseadas em valores cristãos
 
-```bash
-pnpm test
-```
+Encontrar companheiros para atividades sociais e de serviço
 
-## Styling
+Construir relacionamentos saudáveis e significativos
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+✨ Funcionalidades
+🔐 Autenticação e Segurança
+Login seguro com verificação de credenciais
 
+Perfis verificáveis de membros da Igreja
 
+Sistema de privacidade configurável
 
+Modo incógnito para navegação discreta
 
-## Routing
-This project uses [TanStack Router](https://tanstack.com/router). The initial setup is a file based router. Which means that the routes are managed as files in `src/routes`.
+👥 Perfis e Conexões
+Perfis detalhados com informações sobre:
 
-### Adding A Route
+Ala/Estaca de filiação
 
-To add a new route to your application just add another a new file in the `./src/routes` directory.
+Chamados atuais e anteriores
 
-TanStack will automatically generate the content of the route file for you.
+Interesses e hobbies
 
-Now that you have two routes you can use a `Link` component to navigate between them.
+Objetivos de relacionamento
 
-### Adding Links
+Sistema de "amizades" e conexões
 
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
+Filtros inteligentes por localização, idade e interesses
 
-```tsx
-import { Link } from "@tanstack/react-router";
-```
+💌 Comunicação
+Sistema de mensagens privadas
 
-Then anywhere in your JSX you can use it like so:
+Salas de bate-papo em grupo por interesses
 
-```tsx
-<Link to="/about">About</Link>
-```
+Eventos e atividades da ala/estaca
 
-This will create a link that will navigate to the `/about` route.
+Notificações em tempo real
 
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+📅 Eventos e Atividades
+Calendário de eventos da Igreja
 
-### Using A Layout
+Criação de atividades sociais
 
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you use the `<Outlet />` component.
+Sistema de confirmação de presença
 
-Here is an example layout that includes a header:
+Fotos e memórias compartilhadas
 
-```tsx
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+⚙️ Funcionalidades Técnicas
+Interface responsiva (mobile/desktop)
 
-import { Link } from "@tanstack/react-router";
+Temas claro/escuro
 
-export const Route = createRootRoute({
-  component: () => (
-    <>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-        </nav>
-      </header>
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
-  ),
-})
-```
+Notificações push
 
-The `<TanStackRouterDevtools />` component is not required so you can remove it if you don't want it in your layout.
+Upload seguro de fotos
 
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
+Pesquisa avançada com filtros
 
+🛠 Tecnologias
+Frontend
+React 18+ - Biblioteca principal para construção da UI
 
-## Data Fetching
+Vite 5+ - Build tool ultra rápido
 
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
+TypeScript - Tipagem estática para maior segurança
 
-For example:
-
-```tsx
-const peopleRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/people",
-  loader: async () => {
-    const response = await fetch("https://swapi.dev/api/people");
-    return response.json() as Promise<{
-      results: {
-        name: string;
-      }[];
-    }>;
-  },
-  component: () => {
-    const data = peopleRoute.useLoaderData();
-    return (
-      <ul>
-        {data.results.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    );
-  },
-});
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-### React-Query
-
-React-Query is an excellent addition or alternative to route loading and integrating it into you application is a breeze.
-
-First add your dependencies:
-
-```bash
-pnpm add @tanstack/react-query @tanstack/react-query-devtools
-```
-
-Next we'll need to create a query client and provider. We recommend putting those in `main.tsx`.
-
-```tsx
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// ...
-
-const queryClient = new QueryClient();
-
-// ...
-
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-
-  root.render(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  );
-}
-```
-
-You can also add TanStack Query Devtools to the root route (optional).
-
-```tsx
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      <ReactQueryDevtools buttonPosition="top-right" />
-      <TanStackRouterDevtools />
-    </>
-  ),
-});
-```
-
-Now you can use `useQuery` to fetch your data.
-
-```tsx
-import { useQuery } from "@tanstack/react-query";
-
-import "./App.css";
-
-function App() {
-  const { data } = useQuery({
-    queryKey: ["people"],
-    queryFn: () =>
-      fetch("https://swapi.dev/api/people")
-        .then((res) => res.json())
-        .then((data) => data.results as { name: string }[]),
-    initialData: [],
-  });
-
-  return (
-    <div>
-      <ul>
-        {data.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default App;
-```
-
-You can find out everything you need to know on how to use React-Query in the [React-Query documentation](https://tanstack.com/query/latest/docs/framework/react/overview).
-
-## State Management
-
-Another common requirement for React applications is state management. There are many options for state management in React. TanStack Store provides a great starting point for your project.
-
-First you need to add TanStack Store as a dependency:
-
-```bash
-pnpm add @tanstack/store
-```
-
-Now let's create a simple counter in the `src/App.tsx` file as a demonstration.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-function App() {
-  const count = useStore(countStore);
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-    </div>
-  );
-}
-
-export default App;
-```
-
-One of the many nice features of TanStack Store is the ability to derive state from other state. That derived state will update when the base state updates.
-
-Let's check this out by doubling the count using derived state.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store, Derived } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-const doubledStore = new Derived({
-  fn: () => countStore.state * 2,
-  deps: [countStore],
-});
-doubledStore.mount();
-
-function App() {
-  const count = useStore(countStore);
-  const doubledCount = useStore(doubledStore);
-
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-      <div>Doubled - {doubledCount}</div>
-    </div>
-  );
-}
-
-export default App;
-```
-
-We use the `Derived` class to create a new store that is derived from another store. The `Derived` class has a `mount` method that will start the derived store updating.
-
-Once we've created the derived store we can use it in the `App` component just like we would any other store using the `useStore` hook.
-
-You can find out everything you need to know on how to use TanStack Store in the [TanStack Store documentation](https://tanstack.com/store/latest).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
+Tailwind CSS 4.0 - Framework CSS utility-first
+
+TanStack Router v1 - Roteamento avançado com type-safety
+
+TanStack Query v5 - Gerenciamento de estado do servidor
+
+React Hook Form - Formulários performáticos com validação
+
+Swiper 11 - Carrosséis e sliders touch-friendly
+
+Utilitários
+Lucide React - Ícones modernos
+
+Date-fns - Manipulação de datas
+
+Zod - Validação de schemas TypeScript-first
+
+React Dropzone - Upload de arquivos
+
+React Hot Toast - Notificações toast
+
+🚀 Começando
+Pré-requisitos
+Node.js 18+ ou 20+
+
+pnpm 8+ (recomendado) ou npm/yarn
+
+Git
