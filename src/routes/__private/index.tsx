@@ -1,0 +1,22 @@
+import { createFileRoute } from "@tanstack/react-router";
+import CreatePost from "@/components/CreatePost";
+import PostContent from "@/components/PostContent";
+export const Route = createFileRoute("/__private/")({
+  component: App,
+  // beforeLoad: ({ context }) => {
+  //   throw redirect({
+  //     to: "/preload",
+  //     replace: true,
+  //   });
+  // },
+});
+
+function App() {
+  return (
+    <main className="bg-background">
+      <CreatePost />
+
+      <PostContent />
+    </main>
+  );
+}
