@@ -28,6 +28,18 @@ declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
+
+  interface RouteContext {
+    title?: string;
+    head?: {
+      meta?: Array<{
+        title?: string;
+        description?: string;
+        keywords?: string;
+        [key: string]: any;
+      }>;
+    };
+  }
 }
 
 // Render the app
