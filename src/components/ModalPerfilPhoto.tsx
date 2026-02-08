@@ -330,7 +330,9 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
               <>
                 <button
                   onClick={triggerFileInput}
-                  className="flex-1 group bg-white border-2 border-primary text-primary font-semibold rounded-xl p-4 flex items-center justify-center gap-3 hover:bg-primary hover:text-white transition-all duration-300"
+                  className="flex-1 group bg-white border-2 border-primary 
+                  ext-primary font-semibold rounded-xl p-4 flex items-center 
+                  justify-center gap-3 hover:bg-primary hover:text-white transition-all duration-300"
                 >
                   <Upload className="w-5 h-5" />
                   <span>Escolher do Dispositivo</span>
