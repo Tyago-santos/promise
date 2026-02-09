@@ -8,14 +8,20 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 
-// Create a new router instance
+export interface RouterContext {
+  queryClient: QueryClient;
+  media: MediaQueryList;
+}
+
+const media = window.matchMedia("(max-width: 768px)");
 
 const queryClient = new QueryClient();
 
-const router = createRouter({
+const router = createRouter<RouterContext>({
   routeTree,
   context: {
     queryClient,
+    media,
   },
   defaultPreload: "intent",
   scrollRestoration: true,
@@ -54,7 +60,3 @@ if (rootElement && !rootElement.innerHTML) {
     </StrictMode>,
   );
 }
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
