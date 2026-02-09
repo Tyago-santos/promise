@@ -5,7 +5,6 @@ import {
   MessageCircle,
   User,
   Home,
-  Bell,
   Globe,
   Settings,
 } from "lucide-react";
@@ -22,7 +21,7 @@ const Header = () => {
       id: "chat",
       label: "Chat",
       icon: <MessageCircle size={20} />,
-      path: "/chat",
+      path: "/contact",
       badge: 3,
     },
     {
@@ -58,9 +57,9 @@ const Header = () => {
                   alt="Logo"
                 />
               </div>
-              <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+              {/* <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
                 Conecta+
-              </span>
+              </span> */}
             </Link>
 
             {/* Desktop Navigation */}
