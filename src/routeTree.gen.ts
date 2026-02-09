@@ -9,68 +9,243 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as _privateIndexRouteImport } from './routes/__private/index'
+import { Route as _publicRegisterRouteImport } from './routes/__public/register'
+import { Route as _publicPreloadRouteImport } from './routes/__public/preload'
+import { Route as _publicLoginRouteImport } from './routes/__public/login'
+import { Route as _publicCreate_personRouteImport } from './routes/__public/create_person'
+import { Route as _privateSearchRouteImport } from './routes/__private/search'
+import { Route as _privateMatchRouteImport } from './routes/__private/match'
+import { Route as _privatePerfilRouteImport } from './routes/__private/$perfil'
+import { Route as _privateContactIndexRouteImport } from './routes/__private/contact/index'
+import { Route as _privateContactChatRouteImport } from './routes/__private/contact/$chat'
 
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
+const _privateIndexRoute = _privateIndexRouteImport.update({
+  id: '/__private/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _publicRegisterRoute = _publicRegisterRouteImport.update({
+  id: '/__public/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _publicPreloadRoute = _publicPreloadRouteImport.update({
+  id: '/__public/preload',
+  path: '/preload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _publicLoginRoute = _publicLoginRouteImport.update({
+  id: '/__public/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const _publicCreate_personRoute = _publicCreate_personRouteImport.update({
+  id: '/__public/create_person',
+  path: '/create_person',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _privateSearchRoute = _privateSearchRouteImport.update({
+  id: '/__private/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _privateMatchRoute = _privateMatchRouteImport.update({
+  id: '/__private/match',
+  path: '/match',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _privatePerfilRoute = _privatePerfilRouteImport.update({
+  id: '/__private/$perfil',
+  path: '/$perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _privateContactIndexRoute = _privateContactIndexRouteImport.update({
+  id: '/__private/contact/',
+  path: '/contact/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const _privateContactChatRoute = _privateContactChatRouteImport.update({
+  id: '/__private/contact/$chat',
+  path: '/contact/$chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
+  '/$perfil': typeof _privatePerfilRoute
+  '/match': typeof _privateMatchRoute
+  '/search': typeof _privateSearchRoute
+  '/create_person': typeof _publicCreate_personRoute
+  '/login': typeof _publicLoginRoute
+  '/preload': typeof _publicPreloadRoute
+  '/register': typeof _publicRegisterRoute
+  '/': typeof _privateIndexRoute
+  '/contact/$chat': typeof _privateContactChatRoute
+  '/contact/': typeof _privateContactIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
+  '/$perfil': typeof _privatePerfilRoute
+  '/match': typeof _privateMatchRoute
+  '/search': typeof _privateSearchRoute
+  '/create_person': typeof _publicCreate_personRoute
+  '/login': typeof _publicLoginRoute
+  '/preload': typeof _publicPreloadRoute
+  '/register': typeof _publicRegisterRoute
+  '/': typeof _privateIndexRoute
+  '/contact/$chat': typeof _privateContactChatRoute
+  '/contact': typeof _privateContactIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
+  '/__private/$perfil': typeof _privatePerfilRoute
+  '/__private/match': typeof _privateMatchRoute
+  '/__private/search': typeof _privateSearchRoute
+  '/__public/create_person': typeof _publicCreate_personRoute
+  '/__public/login': typeof _publicLoginRoute
+  '/__public/preload': typeof _publicPreloadRoute
+  '/__public/register': typeof _publicRegisterRoute
+  '/__private/': typeof _privateIndexRoute
+  '/__private/contact/$chat': typeof _privateContactChatRoute
+  '/__private/contact/': typeof _privateContactIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login'
+  fullPaths:
+    | '/$perfil'
+    | '/match'
+    | '/search'
+    | '/create_person'
+    | '/login'
+    | '/preload'
+    | '/register'
+    | '/'
+    | '/contact/$chat'
+    | '/contact/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login'
-  id: '__root__' | '/' | '/login'
+  to:
+    | '/$perfil'
+    | '/match'
+    | '/search'
+    | '/create_person'
+    | '/login'
+    | '/preload'
+    | '/register'
+    | '/'
+    | '/contact/$chat'
+    | '/contact'
+  id:
+    | '__root__'
+    | '/__private/$perfil'
+    | '/__private/match'
+    | '/__private/search'
+    | '/__public/create_person'
+    | '/__public/login'
+    | '/__public/preload'
+    | '/__public/register'
+    | '/__private/'
+    | '/__private/contact/$chat'
+    | '/__private/contact/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  LoginRoute: typeof LoginRoute
+  _privatePerfilRoute: typeof _privatePerfilRoute
+  _privateMatchRoute: typeof _privateMatchRoute
+  _privateSearchRoute: typeof _privateSearchRoute
+  _publicCreate_personRoute: typeof _publicCreate_personRoute
+  _publicLoginRoute: typeof _publicLoginRoute
+  _publicPreloadRoute: typeof _publicPreloadRoute
+  _publicRegisterRoute: typeof _publicRegisterRoute
+  _privateIndexRoute: typeof _privateIndexRoute
+  _privateContactChatRoute: typeof _privateContactChatRoute
+  _privateContactIndexRoute: typeof _privateContactIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/__private/': {
+      id: '/__private/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof _privateIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__public/register': {
+      id: '/__public/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof _publicRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__public/preload': {
+      id: '/__public/preload'
+      path: '/preload'
+      fullPath: '/preload'
+      preLoaderRoute: typeof _publicPreloadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__public/login': {
+      id: '/__public/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof _publicLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__public/create_person': {
+      id: '/__public/create_person'
+      path: '/create_person'
+      fullPath: '/create_person'
+      preLoaderRoute: typeof _publicCreate_personRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__private/search': {
+      id: '/__private/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof _privateSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__private/match': {
+      id: '/__private/match'
+      path: '/match'
+      fullPath: '/match'
+      preLoaderRoute: typeof _privateMatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__private/$perfil': {
+      id: '/__private/$perfil'
+      path: '/$perfil'
+      fullPath: '/$perfil'
+      preLoaderRoute: typeof _privatePerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__private/contact/': {
+      id: '/__private/contact/'
+      path: '/contact'
+      fullPath: '/contact/'
+      preLoaderRoute: typeof _privateContactIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/__private/contact/$chat': {
+      id: '/__private/contact/$chat'
+      path: '/contact/$chat'
+      fullPath: '/contact/$chat'
+      preLoaderRoute: typeof _privateContactChatRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  LoginRoute: LoginRoute,
+  _privatePerfilRoute: _privatePerfilRoute,
+  _privateMatchRoute: _privateMatchRoute,
+  _privateSearchRoute: _privateSearchRoute,
+  _publicCreate_personRoute: _publicCreate_personRoute,
+  _publicLoginRoute: _publicLoginRoute,
+  _publicPreloadRoute: _publicPreloadRoute,
+  _publicRegisterRoute: _publicRegisterRoute,
+  _privateIndexRoute: _privateIndexRoute,
+  _privateContactChatRoute: _privateContactChatRoute,
+  _privateContactIndexRoute: _privateContactIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -6,7 +6,8 @@
   --color-primary: #fdbe85;
   --color-secondary: #76c7ed;
   --color-accent: #ce82bf;
-  --color-background: #f8f9fa;
+  --color-background: #ffffff;
+  --color-text: #41474d;
 }
 
 @layer base {
