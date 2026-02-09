@@ -2,26 +2,10 @@ import { Link } from "@tanstack/react-router";
 
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 
-type ComentariosType = {
-  usuario: string;
-  texto: string;
-  data: string;
-};
-
-type PostType = {
-  id: number;
-  usuario: string;
-  nomeUsuario: string;
-  imagens: string;
-  image_post: string;
-  descricao: string;
-  comentarios: ComentariosType[];
-  likes: number;
-  dataPostagem: string;
-};
+import type { PostType } from "@/api";
 
 type PropsType = {
-  path: string;
+  path?: string;
 
   posts: PostType[];
 };

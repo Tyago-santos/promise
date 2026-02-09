@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import CreatePost from "@/components/CreatePost";
 import PostContent from "@/components/PostContent";
+import { posts } from "@/api";
+
 export const Route = createFileRoute("/__private/")({
   component: App,
   // beforeLoad: ({ context }) => {
@@ -16,7 +18,7 @@ function App() {
     <main className="bg-background">
       <CreatePost />
 
-      <PostContent />
+      <PostContent posts={posts} />
     </main>
   );
 }

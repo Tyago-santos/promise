@@ -1,22 +1,5 @@
+import type { PostType } from "@/api";
 import PostContent from "./PostContent";
-
-type ComentariosType = {
-  usuario: string;
-  texto: string;
-  data: string;
-};
-
-type PostType = {
-  id: number;
-  usuario: string;
-  nomeUsuario: string;
-  imagens: string;
-  image_post: string;
-  descricao: string;
-  comentarios: ComentariosType[];
-  likes: number;
-  dataPostagem: string;
-};
 
 type PropsType = {
   path: string;
