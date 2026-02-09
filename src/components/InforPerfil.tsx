@@ -1,6 +1,29 @@
 import PostContent from "./PostContent";
 
-export default function InforPerfil() {
+type ComentariosType = {
+  usuario: string;
+  texto: string;
+  data: string;
+};
+
+type PostType = {
+  id: number;
+  usuario: string;
+  nomeUsuario: string;
+  imagens: string;
+  image_post: string;
+  descricao: string;
+  comentarios: ComentariosType[];
+  likes: number;
+  dataPostagem: string;
+};
+
+type PropsType = {
+  path: string;
+  posts: PostType[];
+};
+
+export default function InforPerfil({ path, posts }: PropsType) {
   return (
     <div className="">
       <div className="h-60 z-99">
@@ -47,7 +70,7 @@ export default function InforPerfil() {
         </div>
       </div>
       <div className="transform -translate-y-30">
-        <PostContent />
+        <PostContent path={path} posts={posts} />
       </div>
     </div>
   );
