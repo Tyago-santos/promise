@@ -26,6 +26,7 @@ export default function App() {
     "/register",
     "/preload",
     "/create_person",
+    "/match",
   ];
 
   useEffect(() => {
