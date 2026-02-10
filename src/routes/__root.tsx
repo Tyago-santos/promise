@@ -17,12 +17,27 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 export default function App() {
   const [headerShow, setHeaderShow] = useState(true);
   const location = useLocation();
-  const hiddenRoutes = ["/$perfil", "/chat"];
+  const hiddenRoutes = [
+    "/perfil",
+    "/perfil/$perfil",
+    "/contact/$chat",
+    "/contact",
+    "/login",
+    "/register",
+    "/preload",
+    "/create_person",
+  ];
 
   useEffect(() => {
     const vefifyRoute = () => {
-      console.log(location.pathname);
-      if (hiddenRoutes.includes(location.pathname)) setHeaderShow(false);
+      if (
+        hiddenRoutes.includes(location.pathname) ||
+        /\d/.test(location.href)
+      ) {
+        setHeaderShow(false);
+      } else {
+        setHeaderShow(true);
+      }
     };
 
     vefifyRoute();

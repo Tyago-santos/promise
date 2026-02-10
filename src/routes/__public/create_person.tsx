@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   IoIosArrowDropdownCircle,
   IoIosArrowDropupCircle,
@@ -39,6 +39,7 @@ function App() {
   const [modalPhoto, setModalPhoto] = useState(false);
 
   const { ref, ...restSelect } = register("sex");
+  const navigate = useNavigate();
 
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
@@ -206,6 +207,11 @@ function App() {
             </button>
           </div>
           <input
+            onClick={() =>
+              navigate({
+                to: "/",
+              })
+            }
             className="bg-gradient-to-r from-primary shadow-xl  to-secondary block w-full cursor-pointer mt-3 p-4 rounded-sm font-display font-semibold text-text"
             type="submit"
             value="Crie seu perfil"
