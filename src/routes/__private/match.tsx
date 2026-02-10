@@ -5,5 +5,4 @@ export const Route = createFileRoute('/__private/match')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/__private/match"!</div>
-}
+              <Heart className="w-20 h-20 text-white animate-tinder" />
