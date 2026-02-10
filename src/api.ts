@@ -35,6 +35,79 @@ export type ContactType = {
   mensagens: Msg[];
 };
 
+export interface UserProfile {
+  id: number;
+  name: string;
+  age: number;
+  location: string;
+  bio: string;
+  distance: number;
+  interests: string[];
+  photos: string[];
+  lastActive: string;
+  compatibility: number;
+}
+
+// Dados de exemplo para perfis
+export const allProfiles: UserProfile[] = [
+  {
+    id: 1,
+    name: "Ana",
+    age: 28,
+    location: "São Paulo",
+    bio: "Amo viajar, cinema e cachorros. Busco alguém para compartilhar momentos especiais.",
+    distance: 5,
+    interests: ["Viagens", "Cinema", "Cachorros", "Fotografia"],
+    photos: [
+      "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    ],
+    lastActive: "online",
+    compatibility: 85,
+  },
+  {
+    id: 2,
+    name: "Carlos",
+    age: 32,
+    location: "Rio de Janeiro",
+    bio: "Engenheiro que adora esportes, praia e música ao vivo. Procuro uma parceira para aventuras.",
+    distance: 12,
+    interests: ["Esportes", "Praia", "Música", "Tecnologia"],
+    photos: [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    ],
+    lastActive: "5min",
+    compatibility: 72,
+  },
+  {
+    id: 3,
+    name: "Juliana",
+    age: 26,
+    location: "Belo Horizonte",
+    bio: "Designer gráfica, vegetariana e apaixonada por arte. Busco conexões genuínas.",
+    distance: 8,
+    interests: ["Arte", "Design", "Vegetarianismo", "Yoga"],
+    photos: [
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    ],
+    lastActive: "2h",
+    compatibility: 90,
+  },
+  {
+    id: 4,
+    name: "Rafael",
+    age: 30,
+    location: "Brasília",
+    bio: "Médico que gosta de ler, cozinhar e fazer trilhas. Procuro alguém para construir uma história juntos.",
+    distance: 15,
+    interests: ["Leitura", "Culinária", "Trilhas", "Saúde"],
+    photos: [
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    ],
+    lastActive: "online",
+    compatibility: 78,
+  },
+];
+
 export const posts: PostType[] = [
   {
     id: 1,
