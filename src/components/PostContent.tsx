@@ -24,7 +24,10 @@ const PostContent = ({ path, posts }: PropsType) => {
   return (
     <div>
       {posts.map((post, i) => (
-        <div key={post.id} className="flex  pt-2 cursor-pointer px-4 gap-2 ">
+        <div
+          key={post.id}
+          className="flex border-gray-200 border-b  pt-2 cursor-pointer px-4 gap-2 "
+        >
           <Link
             to={path}
             className="overflow-hidden transition-transform duration-1000  max-h-12 max-w-12 flex rounded-full 
