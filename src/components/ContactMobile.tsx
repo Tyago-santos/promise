@@ -37,7 +37,7 @@ export default function ContactMobile() {
             <div>
               <span className="font-bold text-display ">{contact.nome}</span>
               <div>
-                <p className="text-text font-sans text-sm">
+                <p className="text-text font-sans text-sm w-[200px] text-ellipsis  whitespace-nowrap overflow-hidden">
                   {contact.ultimaMensagem}
                 </p>
                 <span className="font-fans">{contact.ultimoHorario}</span>
