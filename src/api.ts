@@ -16,6 +16,25 @@ export type PostType = {
   dataPostagem: string;
 };
 
+export type Msg = {
+  id: string;
+  text: string;
+  position: "left" | "right";
+  date: Date;
+};
+
+export type ContactType = {
+  id: number;
+  nome: string;
+  username: string;
+  avatar: string;
+  ultimaMensagem: string;
+  ultimoHorario: string;
+  naoLidas: number;
+  online: boolean;
+  mensagens: Msg[];
+};
+
 export const posts: PostType[] = [
   {
     id: 1,
@@ -238,3 +257,152 @@ export const posts: PostType[] = [
     dataPostagem: "2024-01-07T07:55:00Z",
   },
 ];
+
+export const contacts: ContactType[] = [
+  {
+    id: 1,
+    nome: "Maria Silva",
+    username: "maria_silva",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    ultimaMensagem: "Cheguei em casa, me chama depois.",
+    ultimoHorario: "09:12",
+    naoLidas: 2,
+    online: true,
+    mensagens: [
+      { id: 'm1', text: 'Oi, consegui parar um pouco agora. Como foi seu dia até aqui?', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Foi corrido, mas deu tudo certo. Mais tarde te conto com calma.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 2,
+    nome: "Joao Pereira",
+    username: "joao_pereira",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    ultimaMensagem: "Fechou! AmanhÃ£ te aviso.",
+    ultimoHorario: "08:44",
+    naoLidas: 0,
+    online: true,
+    mensagens: [
+      { id: 'm1', text: 'Passei no mercado e lembrei daquela lista que você mandou.', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Boa! Depois me manda o que faltou, que eu resolvo.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 3,
+    nome: "Carla Lima",
+    username: "carla_lima",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
+    ultimaMensagem: "Enviei os arquivos no email.",
+    ultimoHorario: "Ontem",
+    naoLidas: 1,
+    online: true,
+    mensagens: [
+      { id: 'm1', text: 'Acabei de sair da reunião, foi mais longa do que eu esperava.', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Imagino. Quando puder, me dá um resumo do que ficou decidido.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 4,
+    nome: "Rafael Mendes",
+    username: "rafael_mendes",
+    avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
+    ultimaMensagem: "Valeu pela ajuda!",
+    ultimoHorario: "Ontem",
+    naoLidas: 0,
+    online: true,
+    mensagens: [
+      { id: 'm1', text: 'Cheguei agora e estou organizando as coisas aqui em casa.', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Tranquilo! Quando estiver livre, a gente conversa.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 5,
+    nome: "Ana Beatriz",
+    username: "ana_beatriz",
+    avatar: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+    ultimaMensagem: "Podemos marcar na sexta?",
+    ultimoHorario: "Seg",
+    naoLidas: 3,
+    online: true,
+    mensagens: [
+      { id: 'm1', text: 'Pensei em marcar algo mais cedo na sexta, pode ser?', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Pode sim, me passa o horário certinho que eu confirmo.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 6,
+    nome: "Bruno Almeida",
+    username: "bruno_almeida",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+    ultimaMensagem: "Estou a caminho.",
+    ultimoHorario: "Seg",
+    naoLidas: 0,
+    online: false,
+    mensagens: [
+      { id: 'm1', text: 'Estou quase chegando, o trânsito abriu agora.', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Beleza, estou te esperando aqui na entrada.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 7,
+    nome: "Paula Oliveira",
+    username: "paula_oliveira",
+    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+    ultimaMensagem: "Boa noite! AmanhÃ£ falamos.",
+    ultimoHorario: "Dom",
+    naoLidas: 0,
+    online: false,
+    mensagens: [
+      { id: 'm1', text: 'Boa noite! Amanhã tenho um horário mais livre pra falar.', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Perfeito, me chama quando acordar.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 8,
+    nome: "Diego Freitas",
+    username: "diego_freitas",
+    avatar: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c",
+    ultimaMensagem: "Vamos fechar isso hoje?",
+    ultimoHorario: "Dom",
+    naoLidas: 4,
+    online: false,
+    mensagens: [
+      { id: 'm1', text: 'Você acha melhor fechar isso hoje ou deixar pra amanhã?', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Se der, vamos resolver hoje pra ficar tranquilo.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 9,
+    nome: "Fernanda Costa",
+    username: "fernanda_costa",
+    avatar: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7",
+    ultimaMensagem: "Ok, combinado.",
+    ultimoHorario: "Sab",
+    naoLidas: 0,
+    online: false,
+    mensagens: [
+      { id: 'm1', text: 'Ok, combinado. Vou separar tudo e te aviso.', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Obrigado! Qualquer coisa me chama.', position: 'right', date: new Date() },
+    ],
+  },
+  {
+    id: 10,
+    nome: "Thiago Nunes",
+    username: "thiago_nunes",
+    avatar: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91",
+    ultimaMensagem: "JÃ¡ subi no drive.",
+    ultimoHorario: "Sex",
+    naoLidas: 2,
+    online: false,
+    mensagens: [
+      { id: 'm1', text: 'Já subi no drive e organizei por pastas pra facilitar.', position: 'left', date: new Date() },
+      { id: 'm2', text: 'Ótimo, vou conferir mais tarde e te retorno.', position: 'right', date: new Date() },
+    ],
+  },
+];
+
+
+
+
+
+
