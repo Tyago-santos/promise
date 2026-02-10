@@ -269,8 +269,18 @@ export const contacts: ContactType[] = [
     naoLidas: 2,
     online: true,
     mensagens: [
-      { id: 'm1', text: 'Oi, consegui parar um pouco agora. Como foi seu dia até aqui?', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Foi corrido, mas deu tudo certo. Mais tarde te conto com calma.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Oi, consegui parar um pouco agora. Como foi seu dia atï¿½ aqui? Oi, consegui parar um pouco agora. Como foi seu dia atï¿½ aqui?",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Foi corrido, mas deu tudo certo. Mais tarde te conto com calma.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -283,8 +293,18 @@ export const contacts: ContactType[] = [
     naoLidas: 0,
     online: true,
     mensagens: [
-      { id: 'm1', text: 'Passei no mercado e lembrei daquela lista que você mandou.', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Boa! Depois me manda o que faltou, que eu resolvo.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Passei no mercado e lembrei daquela lista que vocï¿½ mandou.",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Boa! Depois me manda o que faltou, que eu resolvo.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -297,8 +317,18 @@ export const contacts: ContactType[] = [
     naoLidas: 1,
     online: true,
     mensagens: [
-      { id: 'm1', text: 'Acabei de sair da reunião, foi mais longa do que eu esperava.', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Imagino. Quando puder, me dá um resumo do que ficou decidido.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Acabei de sair da reuniï¿½o, foi mais longa do que eu esperava.",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Imagino. Quando puder, me dï¿½ um resumo do que ficou decidido.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -311,8 +341,18 @@ export const contacts: ContactType[] = [
     naoLidas: 0,
     online: true,
     mensagens: [
-      { id: 'm1', text: 'Cheguei agora e estou organizando as coisas aqui em casa.', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Tranquilo! Quando estiver livre, a gente conversa.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Cheguei agora e estou organizando as coisas aqui em casa.",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Tranquilo! Quando estiver livre, a gente conversa.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -325,8 +365,18 @@ export const contacts: ContactType[] = [
     naoLidas: 3,
     online: true,
     mensagens: [
-      { id: 'm1', text: 'Pensei em marcar algo mais cedo na sexta, pode ser?', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Pode sim, me passa o horário certinho que eu confirmo.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Pensei em marcar algo mais cedo na sexta, pode ser?",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Pode sim, me passa o horï¿½rio certinho que eu confirmo.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -339,8 +389,18 @@ export const contacts: ContactType[] = [
     naoLidas: 0,
     online: false,
     mensagens: [
-      { id: 'm1', text: 'Estou quase chegando, o trânsito abriu agora.', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Beleza, estou te esperando aqui na entrada.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Estou quase chegando, o trï¿½nsito abriu agora.",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Beleza, estou te esperando aqui na entrada.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -353,8 +413,18 @@ export const contacts: ContactType[] = [
     naoLidas: 0,
     online: false,
     mensagens: [
-      { id: 'm1', text: 'Boa noite! Amanhã tenho um horário mais livre pra falar.', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Perfeito, me chama quando acordar.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Boa noite! Amanhï¿½ tenho um horï¿½rio mais livre pra falar.",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Perfeito, me chama quando acordar.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -367,8 +437,18 @@ export const contacts: ContactType[] = [
     naoLidas: 4,
     online: false,
     mensagens: [
-      { id: 'm1', text: 'Você acha melhor fechar isso hoje ou deixar pra amanhã?', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Se der, vamos resolver hoje pra ficar tranquilo.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Vocï¿½ acha melhor fechar isso hoje ou deixar pra amanhï¿½?",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Se der, vamos resolver hoje pra ficar tranquilo.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -381,8 +461,18 @@ export const contacts: ContactType[] = [
     naoLidas: 0,
     online: false,
     mensagens: [
-      { id: 'm1', text: 'Ok, combinado. Vou separar tudo e te aviso.', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Obrigado! Qualquer coisa me chama.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Ok, combinado. Vou separar tudo e te aviso.",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "Obrigado! Qualquer coisa me chama.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
   {
@@ -395,14 +485,18 @@ export const contacts: ContactType[] = [
     naoLidas: 2,
     online: false,
     mensagens: [
-      { id: 'm1', text: 'Já subi no drive e organizei por pastas pra facilitar.', position: 'left', date: new Date() },
-      { id: 'm2', text: 'Ótimo, vou conferir mais tarde e te retorno.', position: 'right', date: new Date() },
+      {
+        id: "m1",
+        text: "Jï¿½ subi no drive e organizei por pastas pra facilitar.",
+        position: "left",
+        date: new Date(),
+      },
+      {
+        id: "m2",
+        text: "ï¿½timo, vou conferir mais tarde e te retorno.",
+        position: "right",
+        date: new Date(),
+      },
     ],
   },
 ];
-
-
-
-
-
-
