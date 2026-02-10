@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Send } from "lucide-react";
 import { contacts } from "@/api";
 
@@ -65,7 +65,7 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className="flex  flex-col h-screen bg-gray-100">
+    <div className="flex  flex-col h-[100dvh] bg-gray-100">
       <HeaderPerfil name={contacts[chat].nome} />
 
       <div className="px-4 py-2 text-xs text-gray-500"></div>
@@ -80,18 +80,23 @@ export default function Chat() {
             className={`flex ${msg.position === `right` ? `justify-end` : `justify-start`}`}
           >
             {msg.position === "left" && (
-              <img
-                className="max-h-10 max-w-10 object-cove rounded-full mr-2"
-                src={contacts[chatId].avatar}
-                alt=""
-              />
+              <Link
+                to="/perfil"
+                className="size-12 rounded-full mr-2  flex items-center justify-center"
+              >
+                <img
+                  className="h-full w-full object-cover rounded-full "
+                  src={contacts[chatId].avatar}
+                  alt=""
+                />
+              </Link>
             )}
 
             <div
-              className={`max-w-xs px-4 py-2 rounded-lg ${
+              className={`max-w-[200px] px-4 py-2 rounded-lg ${
                 msg.position === "right"
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-300 text-black"
+                  ? "bg-secondary text-white"
+                  : "bg-primary text-black"
               }`}
             >
               <p>{msg.text}</p>
@@ -126,9 +131,9 @@ export default function Chat() {
           />
           <button
             onClick={sendMessage}
-            className=" p-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+            className=" p-4 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:bg-blue-600 transition"
           >
-            <Send />
+            <Send size={15} />
           </button>
         </div>
       </div>
