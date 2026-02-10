@@ -37,7 +37,7 @@ const CreatePost = () => {
               <div className="flex gap-2">
                 <button
                   type="button"
-                  className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors p-2 rounded-lg hover:bg-blue-50"
+                  className="flex items-center gap-2 text-gray-600 hover:text-blue-500  transition-colors p-2 rounded-lg hover:bg-blue-50"
                 >
                   <Image size={20} />
                   <span className="text-sm font-medium">Foto</span>
@@ -54,18 +54,18 @@ const CreatePost = () => {
 
               {/* Submit Button */}
               <button
-                type="submit"
+                type="button"
                 disabled={!postText.trim()}
                 className={`
                   px-4 py-2.5 rounded-full font-medium text-sm transition-all
                   ${
                     postText.trim()
-                      ? "bg-blue-500 hover:bg-blue-600 text-white shadow-md hover:shadow-lg"
+                      ? " hover:bg-gradient-to-r/80 text-white shadow-md hover:shadow-lg   bg-gradient-to-r from-pink-500  to-purple-500"
                       : "bg-gray-100 text-gray-400 cursor-not-allowed"
                   }
                 `}
               >
-                Publicar
+                Postar
               </button>
             </div>
           </form>
@@ -74,7 +74,12 @@ const CreatePost = () => {
 
       {/* Simple Character Counter */}
       {postText.length > 0 && (
-        <div className="flex justify-end mt-3 pt-3 ">
+        <div className="flex justify-between mt-3 pt-3 ">
+          <img
+            className="size-15 rounded-sm"
+            src="/image_post3.jpg"
+            alt="imagem post"
+          />
           <span
             className={`text-xs ${postText.length > 280 ? "text-red-500" : "text-gray-500"}`}
           >
