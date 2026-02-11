@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 
-import { FaRegComment, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 
-import type { PostType } from "@/api";
+import { type PostType } from "@/api";
+import { memo, useState } from "react";
+// import { useReward } from "react-rewards";
 
 type PropsType = {
   path?: string;
@@ -11,6 +13,29 @@ type PropsType = {
 };
 
 const PostContent = ({ path, posts }: PropsType) => {
+  const [likedByIndex, setLikedByIndex] = useState<Record<number, boolean>>({});
+
+  // 2. Configurar quais emojis aparecerão
+  // const { reward, isAnimating } = useReward("emojiReward", "emoji", {
+  //   emoji: ["❤️", "💖", "💗", "✨"], // Mix de corações
+  //   startVelocity: 45, // Explosão inicial forte
+  //   elementCount: 40, // Quantidade generosa
+  //   spread: 80, // Abertura do leque
+  //   decay: 0.95, // Mantém a velocidade por um tempo
+  //   elementSize: 25,
+  // });
+
+  const handleLink = (index: number) => {
+    const wasLiked = !!likedByIndex[index];
+    setLikedByIndex((prev) => ({ ...prev, [index]: !wasLiked }));
+
+    if (wasLiked) {
+      posts[index].likes--;
+    } else {
+      posts[index].likes++;
+    }
+  };
+
   const fomartDate = (data: string) => {
     const now = new Date(data).getUTCSeconds();
 
@@ -67,8 +92,21 @@ const PostContent = ({ path, posts }: PropsType) => {
                   <FaRegComment className="text-text size-5" />
                   {post.comentarios.length}
                 </button>
-                <button className="flex items-center gap-2 font-display font-semibold text-text">
-                  <FaRegHeart className="text-text size-5" />
+                <button
+                  // disabled={isAnimating}
+                  onClick={() => handleLink(i)}
+                  className="flex  items-center gap-2 font-display font-semibold text-text"
+                >
+                  {likedByIndex[i] ? (
+                    <FaHeart className="text-red-600 size-5" />
+                  ) : (
+                    <FaRegHeart className="text-text size-5" />
+                  )}
+
+                  {/* <span
+                    style={{ position: "fixed", top: 0, left: "50%" }}
+                    id="emojiReward"
+                  /> */}
                   {post.likes}
                 </button>
               </div>
@@ -80,4 +118,4 @@ const PostContent = ({ path, posts }: PropsType) => {
   );
 };
 
-export default PostContent;
+export default memo(PostContent);
