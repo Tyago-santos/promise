@@ -17,7 +17,7 @@ const media = window.matchMedia("(max-width: 768px)");
 
 const queryClient = new QueryClient();
 
-const router = createRouter<RouterContext>({
+const router = createRouter({
   routeTree,
   context: {
     queryClient,

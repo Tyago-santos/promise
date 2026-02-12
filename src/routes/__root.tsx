@@ -4,8 +4,6 @@ import {
   createRootRouteWithContext,
   useLocation,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { TanStackDevtools } from "@tanstack/react-devtools";
 import { HeadManager } from "@/components/HeadManager";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
@@ -27,6 +25,7 @@ export default function App() {
     "/preload",
     "/create_person",
     "/match",
+    "/search",
   ];
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export default function App() {
     };
 
     vefifyRoute();
-  });
+  }, [location.href, location.pathname]);
 
   return (
     <>
@@ -50,14 +49,13 @@ export default function App() {
 
       {headerShow && <Header />}
       <Outlet />
-
       {/* <TanStackDevtools
         config={{
-          position: 'bottom-right',
+          position: "bottom-right",
         }}
         plugins={[
           {
-            name: 'Tanstack Router',
+            name: "Tanstack Router",
             render: <TanStackRouterDevtoolsPanel />,
           },
         ]}

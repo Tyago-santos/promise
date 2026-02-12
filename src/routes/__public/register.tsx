@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/__public/register")({
   component: App,
-  beforeLoad: (ctx) => ({
+  beforeLoad: () => ({
     head: {
       meta: [
         {

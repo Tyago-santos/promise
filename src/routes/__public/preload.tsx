@@ -1,4 +1,4 @@
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/__public/preload")({
@@ -26,7 +26,7 @@ function RouteComponent() {
     }, 8000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [navigate]);
   return (
     <main className="flex items-center justify-cennter h-screen">
       <video muted autoPlay src="/video_promise.mp4"></video>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/__public/login")({
   component: App,
-  beforeLoad: (ctx) => ({
+  beforeLoad: () => ({
     head: {
       meta: [
         {

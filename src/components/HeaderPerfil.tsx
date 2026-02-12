@@ -3,10 +3,10 @@ import { FaArrowLeft } from "react-icons/fa";
 
 type PropsType = {
   name: string;
-  match: boolean;
+  match?: boolean;
 };
 
-export default function HeaderPerfil({ name, match }: PropsType) {
+export default function HeaderPerfil({ name, match = false }: PropsType) {
   const router = useRouter();
 
   return (

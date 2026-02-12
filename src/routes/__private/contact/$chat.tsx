@@ -22,7 +22,7 @@ export default function Chat() {
   const { chat } = Route.useParams();
   const chatId = Number(chat);
 
-  const [messages, setMessages] = useState<Msg[]>(contacts[chat].mensagens);
+  const [messages, setMessages] = useState<Msg[]>(contacts[chatId].mensagens);
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -66,7 +66,7 @@ export default function Chat() {
 
   return (
     <div className="flex  flex-col h-[100dvh] bg-gray-100">
-      <HeaderPerfil name={contacts[chat].nome} />
+      <HeaderPerfil name={contacts[chatId].nome} />
 
       <div className="px-4 py-2 text-xs text-gray-500"></div>
 

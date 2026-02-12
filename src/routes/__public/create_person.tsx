@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/__public/create_person")({
   component: App,
-  beforeLoad: (ctx) => ({
+  beforeLoad: () => ({
     head: {
       meta: [
         {
