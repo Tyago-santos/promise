@@ -15,6 +15,7 @@ import { Route as _publicPreloadRouteImport } from './routes/__public/preload'
 import { Route as _publicLoginRouteImport } from './routes/__public/login'
 import { Route as _publicCreate_personRouteImport } from './routes/__public/create_person'
 import { Route as _privateMatchRouteImport } from './routes/__private/match'
+import { Route as _privateCommentRouteImport } from './routes/__private/$comment'
 import { Route as _privatePerfilIndexRouteImport } from './routes/__private/perfil/index'
 import { Route as _privateContactIndexRouteImport } from './routes/__private/contact/index'
 import { Route as _privatePerfilPerfilRouteImport } from './routes/__private/perfil/$perfil'
@@ -50,6 +51,11 @@ const _privateMatchRoute = _privateMatchRouteImport.update({
   path: '/match',
   getParentRoute: () => rootRouteImport,
 } as any)
+const _privateCommentRoute = _privateCommentRouteImport.update({
+  id: '/__private/$comment',
+  path: '/$comment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const _privatePerfilIndexRoute = _privatePerfilIndexRouteImport.update({
   id: '/__private/perfil/',
   path: '/perfil/',
@@ -72,6 +78,7 @@ const _privateContactChatRoute = _privateContactChatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/$comment': typeof _privateCommentRoute
   '/match': typeof _privateMatchRoute
   '/create_person': typeof _publicCreate_personRoute
   '/login': typeof _publicLoginRoute
@@ -84,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/perfil/': typeof _privatePerfilIndexRoute
 }
 export interface FileRoutesByTo {
+  '/$comment': typeof _privateCommentRoute
   '/match': typeof _privateMatchRoute
   '/create_person': typeof _publicCreate_personRoute
   '/login': typeof _publicLoginRoute
@@ -97,6 +105,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/__private/$comment': typeof _privateCommentRoute
   '/__private/match': typeof _privateMatchRoute
   '/__public/create_person': typeof _publicCreate_personRoute
   '/__public/login': typeof _publicLoginRoute
@@ -111,6 +120,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/$comment'
     | '/match'
     | '/create_person'
     | '/login'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
     | '/perfil/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/$comment'
     | '/match'
     | '/create_person'
     | '/login'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/perfil'
   id:
     | '__root__'
+    | '/__private/$comment'
     | '/__private/match'
     | '/__public/create_person'
     | '/__public/login'
@@ -148,6 +160,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  _privateCommentRoute: typeof _privateCommentRoute
   _privateMatchRoute: typeof _privateMatchRoute
   _publicCreate_personRoute: typeof _publicCreate_personRoute
   _publicLoginRoute: typeof _publicLoginRoute
@@ -204,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof _privateMatchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/__private/$comment': {
+      id: '/__private/$comment'
+      path: '/$comment'
+      fullPath: '/$comment'
+      preLoaderRoute: typeof _privateCommentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/__private/perfil/': {
       id: '/__private/perfil/'
       path: '/perfil'
@@ -236,6 +256,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  _privateCommentRoute: _privateCommentRoute,
   _privateMatchRoute: _privateMatchRoute,
   _publicCreate_personRoute: _publicCreate_personRoute,
   _publicLoginRoute: _publicLoginRoute,
