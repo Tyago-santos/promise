@@ -56,7 +56,8 @@ const PostContent = ({ path, posts }: PropsType) => {
         >
           <Link
             to={path}
-            className="overflow-hidden transition-transform duration-1000  max-h-12 max-w-12 flex rounded-full 
+            className="overflow-hidden transition-transform duration-1000  
+            max-h-12 max-w-12 flex rounded-full 
             items-center justify-center overflow-hidden  max-h-12 max-w-12  "
           >
             <img
@@ -85,7 +86,8 @@ const PostContent = ({ path, posts }: PropsType) => {
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
               }}
-              className="rounded-md bg-gray-300 overflow-hidden h-40 w-65"
+              className="rounded-md bg-gray-300 overflow-hidden h-40 w-70   
+              md:h-100 md:w-150 lg:w-200"
             ></div>
             <div className="py-4 flex items-center justify-between  ">
               <div className="gap-4 flex">
