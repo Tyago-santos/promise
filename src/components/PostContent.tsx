@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 
@@ -24,6 +24,7 @@ const PostContent = ({ path, posts }: PropsType) => {
   //   decay: 0.95, // Mantém a velocidade por um tempo
   //   elementSize: 25,
   // });
+  const navigate = useNavigate();
 
   const handleLink = (index: number) => {
     const wasLiked = !!likedByIndex[index];
@@ -88,7 +89,16 @@ const PostContent = ({ path, posts }: PropsType) => {
             ></div>
             <div className="py-4 flex items-center justify-between  ">
               <div className="gap-4 flex">
-                <button className="flex items-center gap-2 font-semibold font-display text-text">
+                <button
+                  onClick={() => {
+                    navigate({
+                      to: "/$comment",
+                      params: { comment: String(i) },
+                    });
+                  }}
+                  className="flex items-center gap-2 font-semibold 
+                font-display text-text"
+                >
                   <FaRegComment className="text-text size-5" />
                   {post.comentarios.length}
                 </button>
