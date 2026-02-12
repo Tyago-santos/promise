@@ -20,6 +20,14 @@ import { posts } from "@/api";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [clearInput, setClearInput] = useState(false);
+
+  const { register, handleSubmit, reset } = useForm<InputType>();
+
+  const addModal = useModalSearchSore((state) => state.addModal);
+  const removeModal = useModalSearchSore((state) => state.removeModal);
+  const getPosts = useModalSearchSore((state) => state.getPosts);
+
   const [activeLink, setActiveLink] = useState("home");
   const media = window.matchMedia("(max-width: 768px)");
   type NavPath = "/" | "/match" | "/contact" | "/perfil";
