@@ -12,7 +12,7 @@ export default function HeaderPerfil({ name, match = false }: PropsType) {
   return (
     <header
       className={
-        !match ? `border border-gray-200 p-4` : `border border-transparent`
+        !match ? `border-b border-gray-200 p-4` : `border border-transparent`
       }
     >
       <div className="flex gap-2  items-center ">
