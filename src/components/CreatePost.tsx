@@ -5,7 +5,7 @@ const CreatePost = () => {
   const [postText, setPostText] = useState("");
 
   return (
-    <div className="bg-white  border-b-1  border-gray-200 p-4 mb-6">
+    <div className="bg-white md:m-auto md:max-w-3xl border-b-1  border-gray-200 p-4 mb-6">
       <div className="flex gap-4">
         {/* Avatar */}
         <div className="flex-shrink-0">

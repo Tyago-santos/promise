@@ -47,7 +47,7 @@ const PostContent = ({ path, posts }: PropsType) => {
     );
   };
   return (
-    <div>
+    <div className="m-auto max-w-3xl">
       {posts.map((post, i) => (
         <div
           key={post.id}
