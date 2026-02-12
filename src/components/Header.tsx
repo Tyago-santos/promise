@@ -1,4 +1,7 @@
 import { Link } from "@tanstack/react-router";
+
+import { useModalSearchSore } from "@/store/useModalSeachStore";
+
 import {
   Menu,
   Search,
@@ -7,6 +10,7 @@ import {
   Home,
   Globe,
   Settings,
+  X,
 } from "lucide-react";
 import { useState } from "react";
 import type { ReactNode } from "react";
@@ -61,6 +65,13 @@ const Header = () => {
       path: "/perfil",
     },
   ];
+
+  // const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.value == "") {
+  //     toggleModal(false);
+  //   }
+  // };
+
   const handleFomInput: SubmitHandler<InputType> = (data) => {
     if (data.search) {
       const filterPost = posts.filter((post) =>
@@ -70,11 +81,12 @@ const Header = () => {
       );
       getPosts(filterPost);
     }
+  };
 
   return (
     <>
-      <header className="sticky  top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        <div className="md:max-w-3xl md:mx-auto px-4">
+      <header>
+        <div className="md:max-w-3xl md:mx-auto px-4 z-45">
           <nav className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link
@@ -154,7 +166,7 @@ const Header = () => {
                   {...register("search")}
                   type="text"
                   placeholder="Buscar..."
-                  className="pl-10 pr-4 py-2 bg-gray-50 rounded-full text-sm 
+                  className="pl-10 pr-4 py-3 bg-gray-50 rounded-full text-sm 
                   focus:outline-none focus:ring-2 focus:ring-pink-500/20 
                   focus:bg-white w-40"
                 />
@@ -169,6 +181,7 @@ const Header = () => {
                   />
                 )}
               </form>
+              {/* Notificatio */}
               {/* <button className="relative p-2 rounded-full hover:bg-gray-50 transition-colors duration-300 group">
                 <Bell
                   size={20}
@@ -179,7 +192,6 @@ const Header = () => {
                   Notificações
                 </span>
               </button> */}
-
               {/* Settings */}
               <button className="hidden sm:flex p-2 rounded-full hover:bg-gray-50 transition-colors duration-300 group relative">
                 <Settings
@@ -190,7 +202,6 @@ const Header = () => {
                   Configurações
                 </span>
               </button>
-
               {/* User Profile */}
               <Link
                 to="/perfil"
@@ -208,7 +219,6 @@ const Header = () => {
                   <div className="absolute -bottom-1 -right-1 size-4 bg-green-500 border-2 border-white rounded-full"></div>
                 </div>
               </Link>
-
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -273,12 +283,12 @@ const Header = () => {
               ))}
 
               {/* Settings Mobile */}
-              <button className="flex flex-col items-center justify-center p-4 rounded-2xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-300">
+              {/* <button className="flex flex-col items-center justify-center p-4 rounded-2xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-300">
                 <div className="p-2 rounded-full bg-gray-50">
                   <Settings size={20} />
                 </div>
                 <span className="mt-2 text-sm font-medium">Configurações</span>
-              </button>
+              </button> */}
             </div>
 
             {/* Quick Stats */}
@@ -305,7 +315,7 @@ const Header = () => {
       {/* Backdrop for mobile menu */}
       {isMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black/20 z-30 backdrop-blur-sm"
+          className="md:hidden fixed top-16 inset-0 bg-black/20 z-30 backdrop-blur-sm"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
@@ -314,4 +324,3 @@ const Header = () => {
 };
 
 export default Header;
-

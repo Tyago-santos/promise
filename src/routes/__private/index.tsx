@@ -14,10 +14,16 @@ export const Route = createFileRoute("/__private/")({
   // },
 });
 
+import { useModalSearchSore } from "@/store/useModalSeachStore";
+import Header from "@/components/Header";
+
 function App() {
+  const modal = useModalSearchSore((state) => state.modal);
+
   return (
     <main className="bg-background">
-      <ModalSearch />
+      <Header />
+      {modal && <ModalSearch />}
 
       <CreatePost />
 
