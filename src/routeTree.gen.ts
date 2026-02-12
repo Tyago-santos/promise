@@ -14,7 +14,6 @@ import { Route as _publicRegisterRouteImport } from './routes/__public/register'
 import { Route as _publicPreloadRouteImport } from './routes/__public/preload'
 import { Route as _publicLoginRouteImport } from './routes/__public/login'
 import { Route as _publicCreate_personRouteImport } from './routes/__public/create_person'
-import { Route as _privateSearchRouteImport } from './routes/__private/search'
 import { Route as _privateMatchRouteImport } from './routes/__private/match'
 import { Route as _privatePerfilIndexRouteImport } from './routes/__private/perfil/index'
 import { Route as _privateContactIndexRouteImport } from './routes/__private/contact/index'
@@ -46,11 +45,6 @@ const _publicCreate_personRoute = _publicCreate_personRouteImport.update({
   path: '/create_person',
   getParentRoute: () => rootRouteImport,
 } as any)
-const _privateSearchRoute = _privateSearchRouteImport.update({
-  id: '/__private/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const _privateMatchRoute = _privateMatchRouteImport.update({
   id: '/__private/match',
   path: '/match',
@@ -79,7 +73,6 @@ const _privateContactChatRoute = _privateContactChatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/match': typeof _privateMatchRoute
-  '/search': typeof _privateSearchRoute
   '/create_person': typeof _publicCreate_personRoute
   '/login': typeof _publicLoginRoute
   '/preload': typeof _publicPreloadRoute
@@ -92,7 +85,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/match': typeof _privateMatchRoute
-  '/search': typeof _privateSearchRoute
   '/create_person': typeof _publicCreate_personRoute
   '/login': typeof _publicLoginRoute
   '/preload': typeof _publicPreloadRoute
@@ -106,7 +98,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/__private/match': typeof _privateMatchRoute
-  '/__private/search': typeof _privateSearchRoute
   '/__public/create_person': typeof _publicCreate_personRoute
   '/__public/login': typeof _publicLoginRoute
   '/__public/preload': typeof _publicPreloadRoute
@@ -121,7 +112,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/match'
-    | '/search'
     | '/create_person'
     | '/login'
     | '/preload'
@@ -134,7 +124,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/match'
-    | '/search'
     | '/create_person'
     | '/login'
     | '/preload'
@@ -147,7 +136,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/__private/match'
-    | '/__private/search'
     | '/__public/create_person'
     | '/__public/login'
     | '/__public/preload'
@@ -161,7 +149,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   _privateMatchRoute: typeof _privateMatchRoute
-  _privateSearchRoute: typeof _privateSearchRoute
   _publicCreate_personRoute: typeof _publicCreate_personRoute
   _publicLoginRoute: typeof _publicLoginRoute
   _publicPreloadRoute: typeof _publicPreloadRoute
@@ -210,13 +197,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof _publicCreate_personRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/__private/search': {
-      id: '/__private/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof _privateSearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/__private/match': {
       id: '/__private/match'
       path: '/match'
@@ -257,7 +237,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   _privateMatchRoute: _privateMatchRoute,
-  _privateSearchRoute: _privateSearchRoute,
   _publicCreate_personRoute: _publicCreate_personRoute,
   _publicLoginRoute: _publicLoginRoute,
   _publicPreloadRoute: _publicPreloadRoute,
