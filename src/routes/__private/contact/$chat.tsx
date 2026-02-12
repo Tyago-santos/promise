@@ -38,8 +38,6 @@ export default function Chat() {
       },
     ]);
     setInputValue("");
-
-    console.log(messages);
   }
 
   useEffect(() => {

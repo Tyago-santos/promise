@@ -62,7 +62,6 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
 
   const handleConfirm = () => {
     if (uploadedPhoto) {
-      console.log("Foto salva:", uploadedPhoto);
       // Aqui você enviaria a foto para o servidor
       setIsEditing(false);
     }
