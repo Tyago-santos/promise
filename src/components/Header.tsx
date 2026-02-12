@@ -11,6 +11,13 @@ import {
 import { useState } from "react";
 import type { ReactNode } from "react";
 
+type InputType = {
+  search: string;
+};
+
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { posts } from "@/api";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
@@ -46,6 +53,15 @@ const Header = () => {
       path: "/perfil",
     },
   ];
+  const handleFomInput: SubmitHandler<InputType> = (data) => {
+    if (data.search) {
+      const filterPost = posts.filter((post) =>
+        post.nomeUsuario
+          .toLocaleLowerCase()
+          .includes(data.search.toLocaleLowerCase()),
+      );
+      getPosts(filterPost);
+    }
 
   return (
     <>
@@ -111,21 +127,40 @@ const Header = () => {
             {/* Right Side Actions */}
             <div className="flex items-center gap-3">
               {/* Search Bar (Mobile/Tablet) */}
-              <div className="md:hidden relative">
+              <form
+                onSubmit={handleSubmit(handleFomInput)}
+                className="md:hidden relative"
+              >
                 <Search
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                   size={18}
                 />
                 <input
+                  onFocus={(e) => {
+                    if (!clearInput) {
+                      e.target.value = "";
+                    }
+                    addModal(true);
+                    setClearInput(true);
+                  }}
+                  {...register("search")}
                   type="text"
                   placeholder="Buscar..."
                   className="pl-10 pr-4 py-2 bg-gray-50 rounded-full text-sm 
                   focus:outline-none focus:ring-2 focus:ring-pink-500/20 
                   focus:bg-white w-40"
                 />
-              </div>
-
-              {/* Notifications */}
+                {clearInput && (
+                  <X
+                    onClick={() => {
+                      removeModal(false);
+                      setClearInput(false);
+                      reset();
+                    }}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                  />
+                )}
+              </form>
               {/* <button className="relative p-2 rounded-full hover:bg-gray-50 transition-colors duration-300 group">
                 <Bell
                   size={20}
