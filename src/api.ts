@@ -48,65 +48,48 @@ export interface UserProfile {
   compatibility: number;
 }
 
-// Dados de exemplo para perfis
-export const allProfiles: UserProfile[] = [
+type ProfileSeed = Omit<UserProfile, "id" | "name" | "photos">;
+
+const profileSeeds: ProfileSeed[] = [
   {
-    id: 1,
-    name: "Ana",
     age: 28,
-    location: "São Paulo",
-    bio: "Amo viajar, cinema e cachorros. Busco alguém para compartilhar momentos especiais.",
+    location: "Sao Paulo",
+    bio: "Amo viajar, cinema e cachorros. Busco alguem para compartilhar momentos especiais.",
     distance: 5,
     interests: ["Viagens", "Cinema", "Cachorros", "Fotografia"],
-    photos: [
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-    ],
     lastActive: "online",
     compatibility: 85,
   },
   {
-    id: 2,
-    name: "Carlos",
     age: 32,
     location: "Rio de Janeiro",
-    bio: "Engenheiro que adora esportes, praia e música ao vivo. Procuro uma parceira para aventuras.",
+    bio: "Gosto de esportes, praia e musica ao vivo. Procuro alguem para novas aventuras.",
     distance: 12,
-    interests: ["Esportes", "Praia", "Música", "Tecnologia"],
-    photos: [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-    ],
+    interests: ["Esportes", "Praia", "Musica", "Tecnologia"],
     lastActive: "5min",
     compatibility: 72,
   },
   {
-    id: 3,
-    name: "Juliana",
     age: 26,
     location: "Belo Horizonte",
-    bio: "Designer gráfica, vegetariana e apaixonada por arte. Busco conexões genuínas.",
+    bio: "Sou criativa, adoro arte e busco conexoes genuinas para viver bons momentos.",
     distance: 8,
-    interests: ["Arte", "Design", "Vegetarianismo", "Yoga"],
-    photos: [
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-    ],
+    interests: ["Arte", "Design", "Yoga", "Fotografia"],
     lastActive: "2h",
     compatibility: 90,
   },
   {
-    id: 4,
-    name: "Rafael",
     age: 30,
-    location: "Brasília",
-    bio: "Médico que gosta de ler, cozinhar e fazer trilhas. Procuro alguém para construir uma história juntos.",
+    location: "Brasilia",
+    bio: "Gosto de leitura, culinaria e trilhas. Quero construir uma historia com parceria.",
     distance: 15,
-    interests: ["Leitura", "Culinária", "Trilhas", "Saúde"],
-    photos: [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-    ],
+    interests: ["Leitura", "Culinaria", "Trilhas", "Saude"],
     lastActive: "online",
     compatibility: 78,
   },
 ];
+
+export const allProfiles: UserProfile[] = [];
 
 export const posts: PostType[] = [
   {
@@ -330,6 +313,25 @@ export const posts: PostType[] = [
     dataPostagem: "2024-01-07T07:55:00Z",
   },
 ];
+
+allProfiles.push(
+  ...posts.map((post, index) => {
+    const seed = profileSeeds[index % profileSeeds.length];
+
+    return {
+      id: post.id,
+      name: post.nomeUsuario,
+      age: seed.age,
+      location: seed.location,
+      bio: `${seed.bio} ${post.descricao}`,
+      distance: seed.distance + (index % 4),
+      interests: seed.interests,
+      photos: [post.imagens],
+      lastActive: seed.lastActive,
+      compatibility: Math.min(99, seed.compatibility + (index % 6)),
+    };
+  }),
+);
 
 export const contacts: ContactType[] = [
   {
@@ -573,3 +575,4 @@ export const contacts: ContactType[] = [
     ],
   },
 ];
+
