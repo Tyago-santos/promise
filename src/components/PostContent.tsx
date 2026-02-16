@@ -3,18 +3,16 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 
 import { type PostType } from "@/api";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 // import { useReward } from "react-rewards";
 
 type PropsType = {
-  path?: string;
-
   posts: PostType[];
 };
 
-const PostContent = ({ path, posts }: PropsType) => {
+const PostContent = ({ posts }: PropsType) => {
   const [likedByIndex, setLikedByIndex] = useState<Record<number, boolean>>({});
-
+  const [postsState, setPostState] = useState<PostType[]>();
   // 2. Configurar quais emojis aparecerão
   // const { reward, isAnimating } = useReward("emojiReward", "emoji", {
   //   emoji: ["❤️", "💖", "💗", "✨"], // Mix de corações
@@ -24,7 +22,12 @@ const PostContent = ({ path, posts }: PropsType) => {
   //   decay: 0.95, // Mantém a velocidade por um tempo
   //   elementSize: 25,
   // });
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setPostState(posts.reverse());
+  }, [postsState]);
 
   const handleLink = (index: number) => {
     const wasLiked = !!likedByIndex[index];
@@ -49,26 +52,27 @@ const PostContent = ({ path, posts }: PropsType) => {
   };
   return (
     <div className="m-auto max-w-3xl">
-      {posts.map((post, i) => (
+      {postsState?.map((post, i) => (
         <div
           key={post.id}
           className="flex border-gray-200 border-b  pt-2 cursor-pointer px-4 gap-2 "
         >
           <Link
-            to={path}
+            to="/perfil/$perfil"
+            params={{ perfil: String(i) }}
             className="overflow-hidden transition-transform duration-1000  
             max-h-12 max-w-12 flex rounded-full 
             items-center justify-center overflow-hidden  max-h-12 max-w-12  "
           >
             <img
-              className="transform scale-[2]   max-h-full max-w-full  block"
+              className="transform scale-[2] max-h-full max-w-full  block"
               src={post.imagens}
               alt="Imagem de perfil"
             />
           </Link>
           <div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center  gap-2">
                 <span className="font-bold text-sm font-display">
                   {post.nomeUsuario}
                 </span>
@@ -77,7 +81,7 @@ const PostContent = ({ path, posts }: PropsType) => {
                   há {fomartDate(post.dataPostagem)} dias atrás{" "}
                 </span>
               </div>
-              <p className="block  my-4 text-wrap">{post.descricao}</p>
+              <p className="block  my-4 ">{post.descricao}</p>
             </div>
             <div
               style={{
@@ -87,7 +91,7 @@ const PostContent = ({ path, posts }: PropsType) => {
                 backgroundRepeat: "no-repeat",
               }}
               className="rounded-md bg-gray-300 overflow-hidden h-40 w-70   
-              md:h-100 md:w-150 lg:w-200"
+              md:h-100 md:w-150 lg:w-150"
             ></div>
             <div className="py-4 flex items-center justify-between  ">
               <div className="gap-4 flex">
