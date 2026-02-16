@@ -18,6 +18,7 @@ import { Route as _privateMatchRouteImport } from './routes/__private/match'
 import { Route as _privateCommentRouteImport } from './routes/__private/$comment'
 import { Route as _privatePerfilIndexRouteImport } from './routes/__private/perfil/index'
 import { Route as _privateContactIndexRouteImport } from './routes/__private/contact/index'
+import { Route as _privatePerfilEdit_perfilRouteImport } from './routes/__private/perfil/edit_perfil'
 import { Route as _privatePerfilPerfilRouteImport } from './routes/__private/perfil/$perfil'
 import { Route as _privateContactChatRouteImport } from './routes/__private/contact/$chat'
 
@@ -66,6 +67,12 @@ const _privateContactIndexRoute = _privateContactIndexRouteImport.update({
   path: '/contact/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const _privatePerfilEdit_perfilRoute =
+  _privatePerfilEdit_perfilRouteImport.update({
+    id: '/__private/perfil/edit_perfil',
+    path: '/perfil/edit_perfil',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const _privatePerfilPerfilRoute = _privatePerfilPerfilRouteImport.update({
   id: '/__private/perfil/$perfil',
   path: '/perfil/$perfil',
@@ -87,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/': typeof _privateIndexRoute
   '/contact/$chat': typeof _privateContactChatRoute
   '/perfil/$perfil': typeof _privatePerfilPerfilRoute
+  '/perfil/edit_perfil': typeof _privatePerfilEdit_perfilRoute
   '/contact/': typeof _privateContactIndexRoute
   '/perfil/': typeof _privatePerfilIndexRoute
 }
@@ -100,6 +108,7 @@ export interface FileRoutesByTo {
   '/': typeof _privateIndexRoute
   '/contact/$chat': typeof _privateContactChatRoute
   '/perfil/$perfil': typeof _privatePerfilPerfilRoute
+  '/perfil/edit_perfil': typeof _privatePerfilEdit_perfilRoute
   '/contact': typeof _privateContactIndexRoute
   '/perfil': typeof _privatePerfilIndexRoute
 }
@@ -114,6 +123,7 @@ export interface FileRoutesById {
   '/__private/': typeof _privateIndexRoute
   '/__private/contact/$chat': typeof _privateContactChatRoute
   '/__private/perfil/$perfil': typeof _privatePerfilPerfilRoute
+  '/__private/perfil/edit_perfil': typeof _privatePerfilEdit_perfilRoute
   '/__private/contact/': typeof _privateContactIndexRoute
   '/__private/perfil/': typeof _privatePerfilIndexRoute
 }
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/'
     | '/contact/$chat'
     | '/perfil/$perfil'
+    | '/perfil/edit_perfil'
     | '/contact/'
     | '/perfil/'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/'
     | '/contact/$chat'
     | '/perfil/$perfil'
+    | '/perfil/edit_perfil'
     | '/contact'
     | '/perfil'
   id:
@@ -155,6 +167,7 @@ export interface FileRouteTypes {
     | '/__private/'
     | '/__private/contact/$chat'
     | '/__private/perfil/$perfil'
+    | '/__private/perfil/edit_perfil'
     | '/__private/contact/'
     | '/__private/perfil/'
   fileRoutesById: FileRoutesById
@@ -169,6 +182,7 @@ export interface RootRouteChildren {
   _privateIndexRoute: typeof _privateIndexRoute
   _privateContactChatRoute: typeof _privateContactChatRoute
   _privatePerfilPerfilRoute: typeof _privatePerfilPerfilRoute
+  _privatePerfilEdit_perfilRoute: typeof _privatePerfilEdit_perfilRoute
   _privateContactIndexRoute: typeof _privateContactIndexRoute
   _privatePerfilIndexRoute: typeof _privatePerfilIndexRoute
 }
@@ -238,6 +252,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof _privateContactIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/__private/perfil/edit_perfil': {
+      id: '/__private/perfil/edit_perfil'
+      path: '/perfil/edit_perfil'
+      fullPath: '/perfil/edit_perfil'
+      preLoaderRoute: typeof _privatePerfilEdit_perfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/__private/perfil/$perfil': {
       id: '/__private/perfil/$perfil'
       path: '/perfil/$perfil'
@@ -265,6 +286,7 @@ const rootRouteChildren: RootRouteChildren = {
   _privateIndexRoute: _privateIndexRoute,
   _privateContactChatRoute: _privateContactChatRoute,
   _privatePerfilPerfilRoute: _privatePerfilPerfilRoute,
+  _privatePerfilEdit_perfilRoute: _privatePerfilEdit_perfilRoute,
   _privateContactIndexRoute: _privateContactIndexRoute,
   _privatePerfilIndexRoute: _privatePerfilIndexRoute,
 }
