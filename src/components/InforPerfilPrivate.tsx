@@ -1,6 +1,7 @@
-import type { PostType, UserProfile } from "@/api";
+import type { PostType } from "@/api";
 import PostContent from "./PostContent";
 import { LocateIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 type PropsType = {
   posts: PostType[];
@@ -8,12 +9,12 @@ type PropsType = {
 
 export default function InforPerfil({ posts }: PropsType) {
   return (
-    <div className="">
-      <div className="h-65 z-99">
+    <div className="m-auto max-w-3xl">
+      <div className="h-65 md:h-full z-99">
         <img className="max-h-full " src="/image_post2.jpg" alt="poster" />
       </div>
 
-      <div className=" bg-white transform -translate-y-30 border-b pt-3 border-gray-200 pb-3    px-4">
+      <div className=" bg-white transform -translate-y-30 md:-translate-y-75 border-b pt-3 border-gray-200 pb-3    px-4">
         <div className="flex justify-between items-center">
           <div
             className="h-20 w-20 -mt-8 rounded-full 
@@ -26,14 +27,16 @@ export default function InforPerfil({ posts }: PropsType) {
             />
           </div>
 
-          <button
+          <Link
+            to="/perfil/edit_perfil"
             className={`
                  hover:bg-gradient-to-r/80 text-white shadow-md hover:shadow-lg 
-                   bg-gradient-to-r from-pink-500 px-2 text-[10px] py-2 rounded-full to-purple-500
+                   bg-gradient-to-r from-pink-500 px-2 text-[10px] md:text-lg py-2 
+                   rounded-full to-purple-500 md:px-10
                 `}
           >
-            Editar Perfil
-          </button>
+            Editar perfil
+          </Link>
         </div>
 
         <div>
@@ -61,7 +64,7 @@ export default function InforPerfil({ posts }: PropsType) {
           </div>
         </div>
       </div>
-      <div className="transform -translate-y-30">
+      <div className="transform -translate-y-25  md:-translate-y-70">
         <PostContent posts={posts} />
       </div>
     </div>
