@@ -53,12 +53,6 @@ const Header = () => {
       badge: 3,
     },
     {
-      id: "search",
-      label: "Buscar",
-      icon: <Search size={20} />,
-      path: "/",
-    },
-    {
       id: "profile",
       label: "Perfil",
       icon: <User size={20} />,
@@ -87,17 +81,21 @@ const Header = () => {
     <>
       <header>
         <div className="md:max-w-3xl md:mx-auto px-4 z-45">
-          <nav className="flex items-center justify-between h-16">
+          <nav className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link
               to="/"
               className="flex items-center gap-2 group"
               onClick={() => setActiveLink("home")}
             >
-              <div className="relative size-10 flex items-center justify-center">
-                <div className="absolute inset-0  rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="relative size-10 flex items-center justify-center  ">
+                <div
+                  className="absolute inset-0  rounded-full opacity-10 
+                group-hover:opacity-20 transition-opacity duration-300"
+                ></div>
                 <img
-                  className="block w-8 h-8 transform scale-[2.9] group-hover:scale-110 transition-transform duration-300"
+                  className="block w-10 h-10 transform scale-[2.9] 
+                  group-hover:scale-110 transition-transform duration-300"
                   src="/logo_transparent.png"
                   alt="Logo"
                 />

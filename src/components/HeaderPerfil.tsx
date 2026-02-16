@@ -10,11 +10,7 @@ export default function HeaderPerfil({ name, match = false }: PropsType) {
   const router = useRouter();
 
   return (
-    <header
-      className={
-        !match ? `border-b border-gray-200 p-4` : `border border-transparent`
-      }
-    >
+    <header className={!match ? ` p-4` : `border border-transparent`}>
       <div className="flex gap-2  items-center ">
         <div
           onClick={() => router.history.back()}
