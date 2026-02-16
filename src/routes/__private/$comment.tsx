@@ -12,7 +12,7 @@ function RouteComponent() {
   const id: number = +comment;
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-4 pb-8 md:px-6 lg:px-8 ">
+    <main className="mx-auto w-full max-w-4xl px-4 pb-8 md:px-6 lg:px-8 overflow-scroll ">
       <div className="w-full relative  h-[100dvh] ">
         <HeaderPerfil name="Comentarios" />
 
@@ -24,7 +24,7 @@ function RouteComponent() {
 
         {posts[id].comentarios.map((comment, i) => (
           <article
-            className="flex gap-2 border-b px-2 border-gray-200 py-4  md:gap-4 md:py-5 overflow-scroll "
+            className="flex gap-2 border-b px-2 border-gray-200 py-4  md:gap-4 md:py-5  "
             key={i}
           >
             <img
