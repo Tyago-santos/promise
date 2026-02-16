@@ -46,12 +46,12 @@ export default function ModalMatch({
           animate-pulse "
           >
             <div className="flex  flex-1 items-center justify-center gap-4">
-              <div className="text-white  text-center  ">
+              <div className=" text-white text-center ">
                 <Link
                   to="/perfil"
                   replace
-                  className=" bg-gradient-to-r rounded-full block p-1 
-                  shadow-sm from from-[#7CC3E1] to-[#EB9A96] "
+                  className="bg-gradient-to-r block rounded-full p-1 shadow-sm 
+                  from from-[#F6C89F] to-[#8B82B5]"
                 >
                   <img
                     className="h-20 w-20 rounded-full object-cover"
@@ -59,8 +59,7 @@ export default function ModalMatch({
                     alt="foto do perfil"
                   />
                 </Link>
-
-                {allProfiles[1].name}
+                {allProfiles[2].name}
               </div>
 
               <div
@@ -139,3 +138,5 @@ export default function ModalMatch({
     </div>
   );
 }
+
+//from-[#7CC3E1] to-[#EB9A96]
