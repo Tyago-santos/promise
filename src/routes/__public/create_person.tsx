@@ -26,9 +26,12 @@ export const Route = createFileRoute("/__public/create_person")({
 });
 
 type FormTypeCreatePerson = {
-  age: string;
+  age_day: string;
+  age_month: string;
+  age_yaer: string;
   sex: string;
   place: string;
+  city: string;
   image: string;
 };
 
@@ -64,15 +67,45 @@ function App() {
         </div>
 
         <form onSubmit={handleSubmit(handleSubmitForm)} className="">
-          <h4 className="font-display  text-2xl font-bold text-center mb-6 ">
+          <h4 className="font-display text-2xl font-bold text-center mb-6">
             Crie seu Perfil
           </h4>
-          <input
-            {...register("age")}
-            className="block bg-gray-300 p-4 rounded-sm font-sans w-full"
-            placeholder="Qual sua idade?"
-          />
-          <div className="flex justify-between items-center bg-gray-300 cursor-pointer  p-4 rounded-sm font-sans  w-full my-3">
+          <div className="flex items-center justify-between">
+            <input
+              {...register("age_day", {
+                required: true,
+                maxLength: 2,
+                pattern: /\d/,
+              })}
+              className=" bg-gray-300 p-4 rounded-lg font-sans w-20  focus:outline-none
+             focus:ring-2 focus:ring-secondary/30"
+              placeholder="dd"
+            />
+
+            <input
+              {...register("age_month", {
+                required: true,
+                maxLength: 2,
+                pattern: /\d/,
+              })}
+              className=" bg-gray-300 p-4 rounded-lg font-sans w-20  focus:outline-none
+             focus:ring-2 focus:ring-secondary/30"
+              placeholder="mm"
+            />
+
+            <input
+              {...register("age_yaer", {
+                required: true,
+                maxLength: 2,
+                pattern: /\d/,
+              })}
+              className=" bg-gray-300 p-4 rounded-lg font-sans w-20  focus:outline-none
+             focus:ring-2 focus:ring-secondary/30"
+              placeholder="nn"
+            />
+          </div>
+
+          <div className="flex justify-between items-center bg-gray-300 rounded-lg font-sans w-full my-3">
             <select
               {...restSelect}
               ref={(el) => {
@@ -80,7 +113,7 @@ function App() {
                 selectRef.current = el;
               }}
               style={{ color: "#686a6e" }}
-              className="appearance-none"
+              className="appearance-none bg-transparent p-4 w-full focus:outline-none"
             >
               <option value="" disabled selected>
                 Qual seu gênero?
@@ -88,7 +121,10 @@ function App() {
               <option value="man">Homem</option>
               <option value="woman">Mulher</option>
             </select>
-            <div onClick={handleChangeIconSelect}>
+            <div
+              onClick={handleChangeIconSelect}
+              className="px-4 cursor-pointer"
+            >
               {arrowSelect ? (
                 <IoIosArrowDropupCircle size={22} color="#686a6e" />
               ) : (
@@ -99,28 +135,36 @@ function App() {
 
           <input
             {...register("place")}
-            className="block bg-gray-300 p-4 rounded-sm font-sans w-full"
+            className="block bg-gray-300 p-4 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30"
+            placeholder="Qual seu estado?"
+          />
+
+          <input
+            {...register("city")}
+            className="block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30"
             placeholder="Qual sua cidade?"
           />
-          <div className="space-y-4">
+
+          <div className="space-y-4 mt-3">
             <button
               onClick={handleModalHobbies}
               type="button"
               className="group relative bg-gradient-to-br from-white/5 to-white/0
-               hover:from-white/10 hover:to-white/0
-               border border-white/20 hover:border-primary
-               transform transition-all duration-300
-               hover:translate-y-[-2px] active:translate-y-0
-               shadow-lg hover:shadow-xl hover:shadow-primary/10
-               block w-full cursor-pointer p-4 
-               rounded-xl font-display font-semibold 
-               text-text hover:text-primary
-               focus:outline-none focus:ring-2 focus:ring-primary/30
-               overflow-hidden
-               flex items-center justify-between mt-3"
+                hover:from-white/10 hover:to-white/0
+                border border-white/20 hover:border-primary
+                transform transition-all duration-200
+                hover:translate-y-[-2px] active:translate-y-0 active:scale-[0.98]
+                shadow-lg hover:shadow-xl hover:shadow-primary/10
+                block w-full cursor-pointer p-4 
+                rounded-lg font-display font-semibold 
+                text-text hover:text-primary
+                focus:outline-none focus:ring-2 focus:ring-primary/30
+                overflow-hidden
+                flex items-center justify-between"
             >
               <span className="flex items-center gap-3">
-                {/* Ícone de interesse */}
                 <svg
                   className="w-5 h-5 text-text group-hover:text-primary transition-colors"
                   fill="none"
@@ -141,7 +185,7 @@ function App() {
               </span>
               <svg
                 className="w-5 h-5 text-text/50 group-hover:text-primary 
-                transition-transform transform group-hover:translate-x-1"
+                  transition-transform transform group-hover:translate-x-1"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -159,23 +203,21 @@ function App() {
               onClick={() => setModalPhoto(true)}
               type="button"
               className="group relative bg-gradient-to-br from-white/5 to-white/0
-               hover:from-white/10 hover:to-white/0
-               border border-white/20 hover:border-secondary
-               transform transition-all duration-300
-               hover:translate-y-[-2px] active:translate-y-0
-               shadow-lg hover:shadow-xl hover:shadow-secondary/10
-               block w-full cursor-pointer p-4 
-               rounded-xl font-display font-semibold 
-               text-text hover:text-secondary
-               focus:outline-none focus:ring-2 focus:ring-secondary/30
-               overflow-hidden
-               flex items-center justify-between "
+                hover:from-white/10 hover:to-white/0
+                border border-white/20 hover:border-secondary
+                transform transition-all duration-200
+                hover:translate-y-[-2px] active:translate-y-0 active:scale-[0.98]
+                shadow-lg hover:shadow-xl hover:shadow-secondary/10
+                block w-full cursor-pointer p-4 
+                rounded-lg font-display font-semibold 
+                text-text hover:text-secondary
+                focus:outline-none focus:ring-2 focus:ring-secondary/30
+                overflow-hidden
+                flex items-center justify-between"
             >
               <span className="flex items-center gap-3">
-                {/* Ícone de fotos */}
                 <svg
-                  className="w-5 h-5 text-text group-hover:text-secondary 
-                  transition-colors"
+                  className="w-5 h-5 text-text group-hover:text-secondary transition-colors"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -189,7 +231,7 @@ function App() {
                      00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                Adicione fotos ao seu perfil
+                Adicione foto ao seu perfil
               </span>
               <svg
                 className="w-5 h-5 text-text/50 group-hover:text-secondary transition-transform transform group-hover:translate-x-1"
@@ -206,23 +248,36 @@ function App() {
               </svg>
             </button>
           </div>
+
           <input
             onClick={() =>
               navigate({
                 to: "/",
               })
             }
-            className="bg-gradient-to-r from-primary shadow-xl  to-secondary block w-full cursor-pointer mt-3 p-4 rounded-sm font-display font-semibold text-text"
+            className="bg-gradient-to-r from-primary to-secondary 
+              hover:from-primary/90 hover:to-secondary/90
+              active:scale-[0.98]
+              transform transition-all duration-200
+              shadow-lg hover:shadow-xl
+              block w-full cursor-pointer mt-3 p-4 
+              rounded-lg font-display font-semibold 
+              text-text border-0
+              focus:outline-none focus:ring-2 focus:ring-secondary/50"
             type="submit"
             value="Crie seu perfil"
           />
 
-          <div className="mt-3 cursor-pointer text-center w-full ">
-            <Link to="/" className=" mr-2 text-sans text-text ">
-              Ja possui um conta? Faça login
+          <div className="mt-3 cursor-pointer text-center w-full">
+            <Link
+              to="/"
+              className="mr-2 text-sans text-text hover:text-primary transition-colors"
+            >
+              Já possui uma conta? Faça login
             </Link>
           </div>
         </form>
+
         {modalPhoto && (
           <ModalPerfilPhoto onClose={() => setModalPhoto(false)} />
         )}
