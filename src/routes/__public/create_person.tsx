@@ -10,6 +10,8 @@ import ModalPerfilPhoto from "@/components/ModalPerfilPhoto";
 
 import { useForm } from "react-hook-form";
 
+import { userStore } from "@/store/userStore";
+
 export const Route = createFileRoute("/__public/create_person")({
   component: App,
   beforeLoad: () => ({
@@ -26,9 +28,7 @@ export const Route = createFileRoute("/__public/create_person")({
 });
 
 type FormTypeCreatePerson = {
-  age_day: string;
-  age_month: string;
-  age_yaer: string;
+  age: string;
   sex: string;
   place: string;
   city: string;
@@ -36,18 +36,32 @@ type FormTypeCreatePerson = {
 };
 
 function App() {
-  const { register, handleSubmit } = useForm<FormTypeCreatePerson>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormTypeCreatePerson>();
   const [arrowSelect, setArrowSelect] = useState(false);
   const [modalHobbies, setModalHobbies] = useState(false);
   const [modalPhoto, setModalPhoto] = useState(false);
 
-  const { ref, ...restSelect } = register("sex");
+  const imagePerfil = userStore((state) => state.image_perfil);
+  const intersPerfil = userStore((state) => state.inters);
+
+  const { ref, ...restSelect } = register("sex", {
+    required: "campo obrigatório",
+  });
   const navigate = useNavigate();
 
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
   const handleSubmitForm = () => {
-    alert("envou");
+    if (imagePerfil && intersPerfil) {
+      navigate({
+        to: "/",
+        replace: true,
+      });
+    }
   };
 
   const handleChangeIconSelect = () => {
@@ -70,40 +84,28 @@ function App() {
           <h4 className="font-display text-2xl font-bold text-center mb-6">
             Crie seu Perfil
           </h4>
-          <div className="flex items-center justify-between">
+          <label>
             <input
-              {...register("age_day", {
-                required: true,
-                maxLength: 2,
-                pattern: /\d/,
+              {...register("age", {
+                required: "Campo obrigatório*",
+                minLength: { value: 2, message: "Mínimo de 2 números" },
+                pattern: {
+                  value: /\d/,
+                  message: "este campo só aceita numeros",
+                },
               })}
-              className=" bg-gray-300 p-4 rounded-lg font-sans w-20  focus:outline-none
-             focus:ring-2 focus:ring-secondary/30"
-              placeholder="dd"
+              className={
+                errors.age
+                  ? `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 border border-red-500`
+                  : `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30`
+              }
+              placeholder="Digite sua idade"
             />
 
-            <input
-              {...register("age_month", {
-                required: true,
-                maxLength: 2,
-                pattern: /\d/,
-              })}
-              className=" bg-gray-300 p-4 rounded-lg font-sans w-20  focus:outline-none
-             focus:ring-2 focus:ring-secondary/30"
-              placeholder="mm"
-            />
-
-            <input
-              {...register("age_yaer", {
-                required: true,
-                maxLength: 2,
-                pattern: /\d/,
-              })}
-              className=" bg-gray-300 p-4 rounded-lg font-sans w-20  focus:outline-none
-             focus:ring-2 focus:ring-secondary/30"
-              placeholder="nn"
-            />
-          </div>
+            {errors.age && <p className="text-red-500">{errors.age.message}</p>}
+          </label>
 
           <div className="flex justify-between items-center bg-gray-300 rounded-lg font-sans w-full my-3">
             <select
@@ -115,7 +117,7 @@ function App() {
               style={{ color: "#686a6e" }}
               className="appearance-none bg-transparent p-4 w-full focus:outline-none"
             >
-              <option value="" disabled selected>
+              <option disabled selected>
                 Qual seu gênero?
               </option>
               <option value="man">Homem</option>
@@ -132,26 +134,64 @@ function App() {
               )}
             </div>
           </div>
+          {errors.sex && <p className="text-red-500">{errors.sex.message}</p>}
 
-          <input
-            {...register("place")}
-            className="block bg-gray-300 p-4 rounded-lg font-sans w-full 
-            focus:outline-none focus:ring-2 focus:ring-secondary/30"
-            placeholder="Qual seu estado?"
-          />
+          <label>
+            <input
+              {...register("place", {
+                required: "Campo obrigatório*",
+                minLength: { value: 2, message: "Mínimo de 2 caracteres" },
+              })}
+              className={
+                errors.place
+                  ? `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 border border-red-500`
+                  : `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30`
+              }
+              placeholder="Qual seu estado?"
+            />
 
-          <input
-            {...register("city")}
-            className="block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
-            focus:outline-none focus:ring-2 focus:ring-secondary/30"
-            placeholder="Qual sua cidade?"
-          />
+            {errors.place && (
+              <p className="text-red-500">{errors.place.message}</p>
+            )}
+          </label>
 
+          <label>
+            <input
+              {...register("city", { required: "Campo obrigatório*" })}
+              className={
+                errors.city
+                  ? `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 border border-red-500`
+                  : `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30`
+              }
+              placeholder="Qual sua cidade?"
+            />
+            {errors.city && (
+              <p className="text-red-500">{errors.city.message}</p>
+            )}
+          </label>
           <div className="space-y-4 mt-3">
             <button
               onClick={handleModalHobbies}
               type="button"
-              className="group relative bg-gradient-to-br from-white/5 to-white/0
+              className={
+                intersPerfil
+                  ? `group relative bg-gradient-to-br from-white/5 to-white/0
+                hover:from-white/10 hover:to-white/0
+                border  border-primary
+                transform transition-all duration-200
+                hover:translate-y-[-2px] active:translate-y-0 active:scale-[0.98]
+                shadow-lg hover:shadow-xl hover:shadow-primary/10
+                block w-full cursor-pointer p-4 
+                rounded-lg font-display font-semibold 
+                text-primary
+                outline-none ring-2 ring-primary/30
+                overflow-hidden
+                flex items-center justify-between`
+                  : `group relative bg-gradient-to-br from-white/5 to-white/0
                 hover:from-white/10 hover:to-white/0
                 border border-white/20 hover:border-primary
                 transform transition-all duration-200
@@ -162,11 +202,16 @@ function App() {
                 text-text hover:text-primary
                 focus:outline-none focus:ring-2 focus:ring-primary/30
                 overflow-hidden
-                flex items-center justify-between"
+                flex items-center justify-between`
+              }
             >
               <span className="flex items-center gap-3">
                 <svg
-                  className="w-5 h-5 text-text group-hover:text-primary transition-colors"
+                  className={
+                    intersPerfil
+                      ? `w-5 h-5 text-primary transition-colors`
+                      : `-5 h-5 text-text group-hover:text-primary transition-colors`
+                  }
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -184,8 +229,13 @@ function App() {
                 Quais são suas áreas de interesse?
               </span>
               <svg
-                className="w-5 h-5 text-text/50 group-hover:text-primary 
-                  transition-transform transform group-hover:translate-x-1"
+                className={
+                  intersPerfil
+                    ? `w-5 h-5 text-primary 
+                  transition-transform transform group-hover:translate-x-1`
+                    : `w-5 h-5 text-text/50 group-hover:text-primary 
+                  transition-transform transform group-hover:translate-x-1`
+                }
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -202,7 +252,21 @@ function App() {
             <button
               onClick={() => setModalPhoto(true)}
               type="button"
-              className="group relative bg-gradient-to-br from-white/5 to-white/0
+              className={
+                imagePerfil
+                  ? `group relative bg-gradient-to-br from-white/5 to-white/0
+                from-white/10 to-white/0
+                border border-white/20 border-secondary
+                transform transition-all duration-200
+                hover:translate-y-[-2px] active:translate-y-0 active:scale-[0.98]
+                shadow-lg hover:shadow-xl hover:shadow-secondary/10
+                block w-full cursor-pointer p-4 
+                rounded-lg font-display font-semibold 
+                text-secondary
+                outline-none ring-2 ring-secondary/30
+                overflow-hidden
+                flex items-center justify-between`
+                  : `group relative bg-gradient-to-br from-white/5 to-white/0
                 hover:from-white/10 hover:to-white/0
                 border border-white/20 hover:border-secondary
                 transform transition-all duration-200
@@ -213,11 +277,16 @@ function App() {
                 text-text hover:text-secondary
                 focus:outline-none focus:ring-2 focus:ring-secondary/30
                 overflow-hidden
-                flex items-center justify-between"
+                flex items-center justify-between`
+              }
             >
               <span className="flex items-center gap-3">
                 <svg
-                  className="w-5 h-5 text-text group-hover:text-secondary transition-colors"
+                  className={
+                    imagePerfil
+                      ? `w-5 h-5 text-secondary transition-colors`
+                      : `w-5 h-5 text-text group-hover:text-secondary transition-colors`
+                  }
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -234,7 +303,11 @@ function App() {
                 Adicione foto ao seu perfil
               </span>
               <svg
-                className="w-5 h-5 text-text/50 group-hover:text-secondary transition-transform transform group-hover:translate-x-1"
+                className={
+                  imagePerfil
+                    ? `w-5 h-5  text-secondary transition-transform transform group-hover:translate-x-1`
+                    : `w-5 h-5  group-hover:text-secondary transition-transform transform group-hover:translate-x-1`
+                }
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -250,11 +323,7 @@ function App() {
           </div>
 
           <input
-            onClick={() =>
-              navigate({
-                to: "/",
-              })
-            }
+            onClick={handleSubmitForm}
             className="bg-gradient-to-r from-primary to-secondary 
               hover:from-primary/90 hover:to-secondary/90
               active:scale-[0.98]
