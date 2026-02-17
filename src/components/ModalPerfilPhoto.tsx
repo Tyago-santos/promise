@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import {
   X,
   Upload,
@@ -14,13 +14,18 @@ type PropsType = {
   onClose: () => void;
 };
 
+import Webcam from "react-webcam";
+
 export default function ModalFotoUnica({ onClose }: PropsType) {
   const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);
+  const [imgSrc, setImSrc] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const photoContainerRef = useRef<HTMLDivElement>(null);
+
+  const photoContainerRef = useRef<HTMLImageElement>(null);
+  const webcamRef = useRef<Webcam>(null);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -40,11 +45,15 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
     }
   };
 
-  const handleCameraCapture = () => {
-    alert("Funcionalidade de câmera em breve!");
-    // Aqui você implementaria a captura real da câmera
-  };
+  const handleCameraCapture = useCallback(() => {
+    const imageSrc = webcamRef.current?.getScreenshot();
+    console.log(imageSrc);
 
+    if (imageSrc) {
+      setImSrc(imageSrc);
+      setIsEditing(false);
+    }
+  }, [webcamRef]);
   const handleDeletePhoto = () => {
     setUploadedPhoto(null);
     setIsEditing(false);
@@ -63,7 +72,6 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
   const handleConfirm = () => {
     if (uploadedPhoto) {
       // Aqui você enviaria a foto para o servidor
-      setIsEditing(false);
     }
   };
 
@@ -117,7 +125,7 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
           rounded-2xl border-2 border-dashed border-gray-300 p-8 flex flex-col 
           items-center justify-center min-h-[300px]"
           >
-            {uploadedPhoto ? (
+            {uploadedPhoto || imgSrc ? (
               <div className="relative w-full max-w-md">
                 {/* Container da foto com transformações */}
                 <div
@@ -129,11 +137,25 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
                     transition: "transform 0.3s ease",
                   }}
                 >
-                  <img
+                  {/* <img
                     src={uploadedPhoto}
                     alt="Sua foto de perfil"
                     className="w-full h-auto object-contain max-h-[300px] mx-auto"
+                  /> */}
+
+                  <Webcam
+                    ref={webcamRef}
+                    audio={false}
+                    screenshotFormat="image/jpeg"
                   />
+
+                  {imgSrc && (
+                    <img
+                      src={imgSrc}
+                      alt="Sua foto de perfil"
+                      className="w-full h-auto object-contain max-h-[300px] mx-auto"
+                    />
+                  )}
 
                   {/* Overlay de edição quando ativo */}
                   {isEditing && (
@@ -325,7 +347,7 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
         <div className="p-6 border-t border-gray-100 bg-gray-50">
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Botões de Upload/Câmera quando não tem foto */}
-            {!uploadedPhoto ? (
+            {!uploadedPhoto || !imgSrc ? (
               <>
                 <button
                   onClick={triggerFileInput}
@@ -345,7 +367,10 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
                 </button>
                 <button
                   onClick={handleCameraCapture}
-                  className="flex-1 bg-gradient-to-r from-secondary to-purple-500 text-white font-semibold rounded-xl p-4 flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300"
+                  className="flex-1 bg-gradient-to-r from-secondary 
+                  to-purple-500 text-white font-semibold rounded-xl p-4 
+                  flex items-center justify-center gap-3 hover:shadow-lg 
+                  transition-all duration-300"
                 >
                   <Camera className="w-5 h-5" />
                   <span>Tirar Foto</span>
