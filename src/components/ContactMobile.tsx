@@ -1,18 +1,28 @@
 import HeaderPerfil from "./HeaderPerfil";
-import { Route as ContactChatRoute } from "@/routes/__private/contact/$chat";
 
 import { contacts } from "@/api";
+import { Link } from "@tanstack/react-router";
 
-export default function ContactMobile() {
+type PropsType = {
+  media: boolean;
+};
+
+export default function ContactMobile({ media }: PropsType) {
   return (
-    <main>
+    <main
+      className={
+        !media ? `w-100 bg-green-blue-400 overflow-y-scroll` : "w-full"
+      }
+    >
       <HeaderPerfil name="Tiago dos Santos" />
       <div className="h-screen ">
         <h3 className="font-display   font-bold p-4 text-xl">Mensagens</h3>
 
         {contacts.map((contact, i) => (
-          <ContactChatRoute.Link
+          <Link
+            to={media ? `/contact/$chat` : `/contact/`}
             key={contact.id}
+            from="/contact/"
             params={{ chat: String(i) }}
             className="flex hover:bg-gray-100 p-4 gap-2 border-b border-gray-300"
           >
@@ -43,7 +53,7 @@ export default function ContactMobile() {
                 <span className="font-fans">{contact.ultimoHorario}</span>
               </div>
             </div>
-          </ContactChatRoute.Link>
+          </Link>
         ))}
       </div>
     </main>
