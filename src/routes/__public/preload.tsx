@@ -28,7 +28,7 @@ function RouteComponent() {
     return () => clearTimeout(timer);
   }, [navigate]);
   return (
-    <main className="flex items-center justify-cennter h-screen">
+    <main className="flex items-center justify-center h-full w-full">
       <video muted autoPlay src="/video_promise.mp4"></video>
     </main>
   );
