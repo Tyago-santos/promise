@@ -4,6 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 
+import { userStore } from "@/store/userStore";
+
 const hobbiesRelacionamento = [
   "Filmes",
   "Séries",
@@ -104,6 +106,8 @@ export default function ModalPerfil({ onClose }: PropsType) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCount, setSelectedCount] = useState(0);
 
+  const addInters = userStore((state) => state.addInteresgePerfil);
+
   const filteredHobbies: string[] = hobbiesRelacionamento.filter((hobby) =>
     hobby.toLowerCase().includes(searchTerm.toLowerCase()),
   );
@@ -125,8 +129,8 @@ export default function ModalPerfil({ onClose }: PropsType) {
   };
 
   const handleConfirm = () => {
-    console.log("Hobbies selecionados:", selectedHobbies);
-    // Aqui você pode fechar o modal ou enviar os dados
+    addInters(selectedHobbies);
+    onClose();
   };
 
   return (
