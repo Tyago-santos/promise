@@ -43,8 +43,11 @@ function App() {
           <img className="block" src="/logo.png" alt="" />
         </div>
 
-        <form onSubmit={handleSubmit(handleSubmitForm)} className="px-4">
-          <h4 className="font-display  text-2xl font-bold text-center my-6">
+        <form
+          onSubmit={handleSubmit(handleSubmitForm)}
+          className="px-4 md:w-[30%]"
+        >
+          <h4 className="font-display   text-2xl font-bold text-center my-6">
             Faça Login
           </h4>
           <div
