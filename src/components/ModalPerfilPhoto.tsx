@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import {
   X,
   Upload,
@@ -14,46 +14,76 @@ type PropsType = {
   onClose: () => void;
 };
 
-import Webcam from "react-webcam";
+import imageCompression, { type Options } from "browser-image-compression";
+
+import { userStore } from "@/store/userStore";
 
 export default function ModalFotoUnica({ onClose }: PropsType) {
   const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [zoom, setZoom] = useState(1);
-  const [imgSrc, setImSrc] = useState<string | null>(null);
+  const [compressImage, setCompressImage] = useState<string | null>(null);
+  const [compressedSize, setCompressedSize] = useState<string | null>(null);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const photoContainerRef = useRef<HTMLImageElement>(null);
-  const webcamRef = useRef<Webcam>(null);
+  const addImage = userStore((state) => state.addImagePerfil);
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          setUploadedPhoto(e.target.result as string);
-          setIsEditing(true);
-          setRotation(0);
-          setZoom(1);
-        }
-      };
-      reader.readAsDataURL(file);
+    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+    if (+fileSize > 10) {
+      alert(
+        "arquivo muito grande. Só aceitamos arquivos menor do que 10 megas de tamanho",
+      );
+
+      return;
     }
+
+    if (file.type.startsWith("image/") && file.size / 1024 / 1024 <= 10) {
+      const options: Options = {
+        maxSizeMB: 3,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+      };
+
+      try {
+        const compressedFile: File = await imageCompression(file, options);
+        setCompressImage(URL.createObjectURL(compressedFile));
+        setCompressedSize((compressedFile.size / 1024 / 1024).toFixed(2));
+      } catch (err) {}
+    } else {
+      alert(
+        "formato de arquivo não autorizado. Aceitamos somente jpeg, jpg, png e webp ",
+      );
+    }
+
+    // if (file.type.startsWith("image/")) {
+    //   const reader = new FileReader();
+    //   reader.onload = (e) => {
+    //     if (e.target?.result) {
+    //       setUploadedPhoto(e.target.result as string);
+    //       setIsEditing(true);
+    //       setRotation(0);
+    //       setZoom(1);
+    //     }
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
   };
 
-  const handleCameraCapture = useCallback(() => {
-    const imageSrc = webcamRef.current?.getScreenshot();
-    console.log(imageSrc);
-
-    if (imageSrc) {
-      setImSrc(imageSrc);
-      setIsEditing(false);
+  const handleSalvePhoto = () => {
+    if (compressImage) {
+      addImage(compressImage);
+      onClose();
     }
-  }, [webcamRef]);
+  };
   const handleDeletePhoto = () => {
     setUploadedPhoto(null);
     setIsEditing(false);
@@ -125,7 +155,7 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
           rounded-2xl border-2 border-dashed border-gray-300 p-8 flex flex-col 
           items-center justify-center min-h-[300px]"
           >
-            {uploadedPhoto || imgSrc ? (
+            {compressImage ? (
               <div className="relative w-full max-w-md">
                 {/* Container da foto com transformações */}
                 <div
@@ -137,21 +167,9 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
                     transition: "transform 0.3s ease",
                   }}
                 >
-                  {/* <img
-                    src={uploadedPhoto}
-                    alt="Sua foto de perfil"
-                    className="w-full h-auto object-contain max-h-[300px] mx-auto"
-                  /> */}
-
-                  <Webcam
-                    ref={webcamRef}
-                    audio={false}
-                    screenshotFormat="image/jpeg"
-                  />
-
-                  {imgSrc && (
+                  {compressImage && (
                     <img
-                      src={imgSrc}
+                      src={compressImage}
                       alt="Sua foto de perfil"
                       className="w-full h-auto object-contain max-h-[300px] mx-auto"
                     />
@@ -212,6 +230,9 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
                       </div>
                       <div className="text-sm text-gray-500">
                         Esta será sua imagem principal
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        tamanho da foto compressa {compressedSize}
                       </div>
                     </div>
                   </div>
@@ -347,7 +368,7 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
         <div className="p-6 border-t border-gray-100 bg-gray-50">
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Botões de Upload/Câmera quando não tem foto */}
-            {!uploadedPhoto || !imgSrc ? (
+            {!uploadedPhoto ? (
               <>
                 <button
                   onClick={triggerFileInput}
@@ -366,14 +387,14 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
                   />
                 </button>
                 <button
-                  onClick={handleCameraCapture}
+                  onClick={handleSalvePhoto}
                   className="flex-1 bg-gradient-to-r from-secondary 
                   to-purple-500 text-white font-semibold rounded-xl p-4 
                   flex items-center justify-center gap-3 hover:shadow-lg 
                   transition-all duration-300"
                 >
                   <Camera className="w-5 h-5" />
-                  <span>Tirar Foto</span>
+                  <span>Salvar foto</span>
                 </button>
               </>
             ) : (
