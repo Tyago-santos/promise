@@ -2,12 +2,30 @@ import HeaderPerfil from "@/components/HeaderPerfil";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { Camera, X } from "lucide-react";
+import { useRef, useState, type ChangeEvent } from "react";
+
+import resizeImage from "@/util/lib/resizeImage";
 
 export const Route = createFileRoute("/__private/perfil/edit_perfil")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const inputImageRef = useRef<HTMLInputElement | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleChangeImgPerfil = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const compressedFile = await resizeImage(file);
+
+      const imageSrc = URL.createObjectURL(compressedFile);
+      if (selectedImage) URL.revokeObjectURL(selectedImage);
+
+      setSelectedImage(imageSrc);
+    }
+  };
+
   return (
     <main>
       <HeaderPerfil name="Editar perfil" />
@@ -15,13 +33,13 @@ function RouteComponent() {
       <div className="m-auto max-w-3xl ">
         <div className="h-65 z-99   md:h-full z-99  ">
           <div className="relative">
-            <div
+            <button
               className="absolute top-0 right-0 bottom-0 left-0 bg-black/70 
-          w-full h-full flex justify-center pt-20    gap-4 "
+          w-full h-full flex justify-center pt-20     gap-4 "
             >
               <Camera className="size-8 z-100 text-white " />
               <X className="size-8 z-100 text-white " />
-            </div>
+            </button>
             <img className="max-h-full" src="/image_post2.jpg" alt="poster" />
           </div>
 
@@ -31,13 +49,28 @@ function RouteComponent() {
                 className="h-20 w-20 -mt-8 rounded-full 
         overflow-hidden flex items-center justify-center  relative  border-3 border-white"
               >
-                <div className="absolute bottom-0 right-0 top-0 left-0 bg-black/70 w-full h-full z-100 ">
+                <button
+                  onClick={() => inputImageRef.current?.click()}
+                  className="absolute bottom-0 right-0 top-0 left-0 
+                bg-black/70 w-full h-full z-100 cursor-pointer "
+                >
                   <Camera className="size-5 z-100 text-white absolute top-[35%] right-[40%] " />
-                </div>
-                <img
-                  className="max-w-full max-h-full    scale-[1.5] "
-                  src="/image_perfil.png"
-                  alt="imagem de perfil"
+                </button>
+
+                {selectedImage && (
+                  <img
+                    className="max-w-full max-h-full    scale-[1.5] "
+                    src={selectedImage}
+                    alt="imagem de perfil"
+                  />
+                )}
+
+                <input
+                  className="hiddem md:hidden"
+                  ref={inputImageRef}
+                  onChange={handleChangeImgPerfil}
+                  type="file"
+                  accept="image/*"
                 />
               </div>
             </div>
