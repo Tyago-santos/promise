@@ -1,6 +1,8 @@
 import { posts } from "@/api";
-import { Image, Smile, X } from "lucide-react";
+import { Image, X } from "lucide-react";
 import { useRef, useState, type ChangeEvent } from "react";
+
+import resizeImage from "@/util/lib/resizeImage";
 
 const CreatePost = () => {
   const [postText, setPostText] = useState("");
@@ -42,15 +44,16 @@ const CreatePost = () => {
     imageRef.current?.click();
   };
 
-  const handleGetImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleGetImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
-      setFileImage(file);
+      const compressedFile = await resizeImage(file);
+
+      const imageUrl = URL.createObjectURL(compressedFile);
 
       if (imagePreview) URL.revokeObjectURL(imagePreview);
 
-      const imageUrl = URL.createObjectURL(file);
       setImagePreview(imageUrl);
     }
   };
