@@ -26,37 +26,84 @@ type FormType = {
 };
 
 function App() {
-  const { register, handleSubmit } = useForm<FormType>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormType>();
   const [passwordIcon, setPasswordIcon] = useState(false);
   const navigate = useNavigate();
-  const handleSubmitForm = () => {
-    navigate({ to: "/create_person" });
-  };
+  const handleSubmitForm = () => {};
 
   return (
-    <main className="bg-background">
+    <main className="bg-background ">
       <section className="flex flex-col items-center justify-center pb-4">
         <div className="h-60 w-80">
           <img className="block" src="/logo.png" alt="" />
         </div>
 
-        <form onSubmit={handleSubmit(handleSubmitForm)} className="">
+        <form onSubmit={handleSubmit(handleSubmitForm)} className="md:w-[30%]">
           <h4 className="font-display  text-2xl font-bold text-center my-6 ">
-            Faça seu cadastro
+            Esqueceu a senha
           </h4>
           <input
-            {...register("name")}
-            className="block bg-gray-300 p-4 rounded-sm font-sans w-full"
+            {...register("name", {
+              required: "Camppo obrigatório*",
+              minLength: {
+                value: 2,
+                message: "Digite um nome com mais de dois caracteres",
+              },
+            })}
+            className={
+              errors.name
+                ? `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 border border-red-500 flex`
+                : `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 flex`
+            }
             placeholder="Digite seu nome"
           />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
           <input
-            {...register("email")}
+            {...register("email", {
+              required: "Camppo obrigatório*",
+              pattern: {
+                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "Digite um email válido",
+              },
+            })}
             placeholder="Digite seu email"
-            className="block bg-gray-300 p-4 rounded-sm font-sans mt-3 w-full"
+            className={
+              errors.email
+                ? `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 border border-red-500 flex`
+                : `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 flex`
+            }
           />
-          <div className="flex items-center block bg-gray-300 p-4 rounded-sm font-sans mt-3 w-full">
+
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
+          <div
+            className={
+              errors.password
+                ? `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 border 
+            border-red-500 flex items-center justify-between`
+                : `block bg-gray-300 p-4 my-2 rounded-lg font-sans w-full 
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 flex  
+            items-center justify-between `
+            }
+          >
             <input
-              {...register("password")}
+              {...register("password", {
+                required: "Camppo obrigatório*",
+                minLength: {
+                  value: 4,
+                  message: "senha tem ter no mínimo 4 caracteres",
+                },
+              })}
               placeholder="Digite sua senha"
               type={passwordIcon ? "password" : "text"}
               className="outline-none"
@@ -72,6 +119,9 @@ function App() {
               )}
             </div>
           </div>
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
           <input
             className="bg-gradient-to-r from-primary to-secondary 
              hover:from-primary/90 hover:to-secondary/90
@@ -87,7 +137,10 @@ function App() {
           />
 
           <div className="mt-3 cursor-pointer text-center w-full ">
-            <Link to="/login" className=" mr-2 text-sans text-text ">
+            <Link
+              to="/login"
+              className=" mr-2 text-sans text-text hover:underline "
+            >
               Ja possui um conta? Faça login
             </Link>
           </div>
