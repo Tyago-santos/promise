@@ -340,7 +340,8 @@ function App() {
           <div className="mt-3 cursor-pointer text-center w-full">
             <Link
               to="/"
-              className="mr-2 text-sans text-text hover:text-primary transition-colors"
+              className="mr-2 text-sans text-text hover:text-primary 
+              transition-colors hover:underline"
             >
               Já possui uma conta? Faça login
             </Link>
