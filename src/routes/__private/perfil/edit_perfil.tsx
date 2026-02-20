@@ -11,8 +11,15 @@ export const Route = createFileRoute("/__private/perfil/edit_perfil")({
 });
 
 function RouteComponent() {
-  const inputImageRef = useRef<HTMLInputElement | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const inputImageRefPerfil = useRef<HTMLInputElement | null>(null);
+  const inputImageRefCover = useRef<HTMLInputElement | null>(null);
+
+  const [selectedImagePerfil, setSelectedImagePerfil] = useState<string | null>(
+    null,
+  );
+  const [selectedImageCover, setSelectedImageCover] = useState<string | null>(
+    null,
+  );
 
   const handleChangeImgPerfil = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -20,9 +27,21 @@ function RouteComponent() {
       const compressedFile = await resizeImage(file);
 
       const imageSrc = URL.createObjectURL(compressedFile);
-      if (selectedImage) URL.revokeObjectURL(selectedImage);
+      if (selectedImagePerfil) URL.revokeObjectURL(selectedImagePerfil);
 
-      setSelectedImage(imageSrc);
+      setSelectedImagePerfil(imageSrc);
+    }
+  };
+
+  const handleChangeImgCover = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const compressedFile = await resizeImage(file);
+
+      const imageSrc = URL.createObjectURL(compressedFile);
+      if (selectedImageCover) URL.revokeObjectURL(selectedImageCover);
+
+      setSelectedImageCover(imageSrc);
     }
   };
 
@@ -34,13 +53,28 @@ function RouteComponent() {
         <div className="h-65 z-99   md:h-full z-99  ">
           <div className="relative">
             <button
+              onClick={() => inputImageRefCover.current?.click()}
               className="absolute top-0 right-0 bottom-0 left-0 bg-black/70 
-          w-full h-full flex justify-center pt-20     gap-4 "
+          w-full h-full flex justify-center pt-20 cursor-pointer     gap-4 "
             >
               <Camera className="size-8 z-100 text-white " />
-              <X className="size-8 z-100 text-white " />
             </button>
-            <img className="max-h-full" src="/image_post2.jpg" alt="poster" />
+            <img
+              className="max-h-full"
+              src={
+                selectedImageCover
+                  ? `${selectedImageCover}`
+                  : "/image_post2.jpg"
+              }
+              alt="poster"
+            />
+
+            <input
+              ref={inputImageRefCover}
+              onChange={handleChangeImgCover}
+              type="file"
+              accept="image/*"
+            />
           </div>
 
           <div className=" bg-white transform -translate-y-25   md:-translate-y-75  pt-3 h-30 pb-3    px-4">
@@ -50,24 +84,26 @@ function RouteComponent() {
         overflow-hidden flex items-center justify-center  relative  border-3 border-white"
               >
                 <button
-                  onClick={() => inputImageRef.current?.click()}
+                  onClick={() => inputImageRefPerfil.current?.click()}
                   className="absolute bottom-0 right-0 top-0 left-0 
                 bg-black/70 w-full h-full z-100 cursor-pointer "
                 >
                   <Camera className="size-5 z-100 text-white absolute top-[35%] right-[40%] " />
                 </button>
 
-                {selectedImage && (
-                  <img
-                    className="max-w-full max-h-full    scale-[1.5] "
-                    src={selectedImage}
-                    alt="imagem de perfil"
-                  />
-                )}
+                <img
+                  className="max-w-full max-h-full    scale-[1.5] "
+                  src={
+                    selectedImagePerfil
+                      ? `${selectedImagePerfil}`
+                      : "/image_perfil.png"
+                  }
+                  alt="imagem de perfil"
+                />
 
                 <input
                   className="hiddem md:hidden"
-                  ref={inputImageRef}
+                  ref={inputImageRefPerfil}
                   onChange={handleChangeImgPerfil}
                   type="file"
                   accept="image/*"
