@@ -61,7 +61,7 @@ function App() {
   }, [reward]);
 
   return (
-    <main className="bg-backgroun ">
+    <main className="bg-background ">
       <WelcomeSignupModal />
       <Header />
       {modal && <ModalSearch />}

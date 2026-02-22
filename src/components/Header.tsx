@@ -81,7 +81,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-o right-0 left-0">
+      <header className="fixed top-o right-0 left-0 bg-white z-10000">
         <div className="md:max-w-3xl md:mx-auto px-4  z-45">
           <nav className="flex items-center justify-between h-20">
             {/* Logo */}
@@ -97,7 +97,7 @@ const Header = () => {
                 ></div>
 
                 <img
-                  className="block w-10 h-10 transform scale-[2.9] 
+                  className="block w-5 h-5 transform scale-[2.9] 
                    transition-transform duration-300"
                   src="/logo.png"
                   alt="Logo"
