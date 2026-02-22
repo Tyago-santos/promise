@@ -28,7 +28,7 @@ export const Route = createFileRoute("/__public/create_person")({
 });
 
 type FormTypeCreatePerson = {
-  age: string;
+  age: number;
   sex: string;
   place: string;
   city: string;
@@ -48,6 +48,10 @@ function App() {
   const imagePerfil = userStore((state) => state.image_perfil);
   const intersPerfil = userStore((state) => state.inters);
 
+  const addAge = userStore((state) => state.addAgePerfil);
+  const addCity = userStore((state) => state.addCityPerfil);
+  const addState = userStore((state) => state.addStatePerfil);
+
   const { ref, ...restSelect } = register("sex", {
     required: "campo obrigatório",
   });
@@ -55,13 +59,17 @@ function App() {
 
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
-  const handleSubmitForm = () => {
-    if (imagePerfil && intersPerfil) {
-      navigate({
-        to: "/",
-        replace: true,
-      });
-    }
+  const handleSubmitForm = (data: FormTypeCreatePerson) => {
+    addAge(data.age);
+    addState(data.place);
+    addCity(data.city);
+
+    localStorage.setItem("auth", "true");
+
+    navigate({
+      to: "/",
+      replace: true,
+    });
   };
 
   const handleChangeIconSelect = () => {
@@ -323,7 +331,6 @@ function App() {
           </div>
 
           <input
-            onClick={handleSubmitForm}
             className="bg-gradient-to-r from-primary to-secondary 
               hover:from-primary/90 hover:to-secondary/90
               active:scale-[0.98]

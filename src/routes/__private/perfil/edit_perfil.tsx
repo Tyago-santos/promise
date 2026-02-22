@@ -1,18 +1,35 @@
 import HeaderPerfil from "@/components/HeaderPerfil";
 
-import { createFileRoute } from "@tanstack/react-router";
-import { Camera, X } from "lucide-react";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { Camera, UserStar, X } from "lucide-react";
 import { useRef, useState, type ChangeEvent } from "react";
 
 import resizeImage from "@/util/lib/resizeImage";
+import { userStore } from "@/store/userStore";
 
 export const Route = createFileRoute("/__private/perfil/edit_perfil")({
   component: RouteComponent,
+  beforeLoad: () => ({
+    head: {
+      meta: [
+        {
+          title: "Edite Perfil | Promise",
+          description: "Faça cadastro na plataforma Promise",
+          keywords: "cadastro, autenticação, promise",
+        },
+      ],
+    },
+  }),
 });
 
 function RouteComponent() {
   const inputImageRefPerfil = useRef<HTMLInputElement | null>(null);
   const inputImageRefCover = useRef<HTMLInputElement | null>(null);
+
+  const [bioState, setBioState] = useState<string | undefined>();
+  const [name, setName] = useState<string | undefined>();
+
+  const router = useRouter();
 
   const [selectedImagePerfil, setSelectedImagePerfil] = useState<string | null>(
     null,
@@ -20,6 +37,13 @@ function RouteComponent() {
   const [selectedImageCover, setSelectedImageCover] = useState<string | null>(
     null,
   );
+
+  const cover = userStore((state) => state.cover);
+  const addCover = userStore((state) => state.addCoverPerfil);
+  const imagePerfil = userStore((state) => state.image_perfil);
+
+  const nameUser = userStore((state) => state.addNamePerfil);
+  const bioUser = userStore((state) => state.addBioPerfil);
 
   const handleChangeImgPerfil = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -39,12 +63,24 @@ function RouteComponent() {
       const compressedFile = await resizeImage(file);
 
       const imageSrc = URL.createObjectURL(compressedFile);
+      addCover(imageSrc);
+
       if (selectedImageCover) URL.revokeObjectURL(selectedImageCover);
 
       setSelectedImageCover(imageSrc);
     }
   };
 
+  const handleClickChange = () => {
+    if (bioState) bioUser(bioState);
+
+    if (name) nameUser(name);
+
+    console.log(name);
+    console.log(bioState);
+
+    router.history.back();
+  };
   return (
     <main>
       <HeaderPerfil name="Editar perfil" />
@@ -61,11 +97,7 @@ function RouteComponent() {
             </button>
             <img
               className="max-h-full"
-              src={
-                selectedImageCover
-                  ? `${selectedImageCover}`
-                  : "/image_post2.jpg"
-              }
+              src={cover ? `${cover}` : "/image_post2.jpg"}
               alt="poster"
             />
 
@@ -93,11 +125,7 @@ function RouteComponent() {
 
                 <img
                   className="max-w-full max-h-full    scale-[1.5] "
-                  src={
-                    selectedImagePerfil
-                      ? `${selectedImagePerfil}`
-                      : "/image_perfil.png"
-                  }
+                  src={imagePerfil ? `${imagePerfil}` : "/image_perfil.png"}
                   alt="imagem de perfil"
                 />
 
@@ -114,9 +142,10 @@ function RouteComponent() {
         </div>
 
         <div className="p-4 m-auto md:-translate-y-75 bg-white ">
-          <label className="font-fans" htmlFor="name">
+          <label className="font-fans">
             Nome
             <input
+              onChange={(e) => setName(e.target.value)}
               name="name"
               placeholder="Digite seu nome"
               className="block bg-gray-300 p-4 rounded-sm outline-none 
@@ -124,9 +153,10 @@ function RouteComponent() {
             />
           </label>
 
-          <label className="font-fans my-4 block" htmlFor="bio">
+          <label className="font-fans my-4 block">
             Bio
             <textarea
+              onChange={(e) => setBioState(e.target.value)}
               placeholder="Fale um pouco sobre você"
               className="block bg-gray-300 h-50 resize-none outline-none p-4 
             rounded-sm font-sans mt-3 w-full  
@@ -136,6 +166,7 @@ function RouteComponent() {
           </label>
 
           <input
+            onClick={handleClickChange}
             className="bg-gradient-to-r from-primary to-secondary 
              hover:from-primary/90 hover:to-secondary/90
              active:scale-[0.98]

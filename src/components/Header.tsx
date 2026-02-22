@@ -9,7 +9,6 @@ import {
   User,
   Home,
   Globe,
-  Settings,
   X,
 } from "lucide-react";
 import { useState } from "react";
@@ -21,6 +20,7 @@ type InputType = {
 
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { posts } from "@/api";
+import { userStore } from "@/store/userStore";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,6 +66,8 @@ const Header = () => {
   //   }
   // };
 
+  const img = userStore((state) => state.image_perfil);
+
   const handleFomInput: SubmitHandler<InputType> = (data) => {
     if (data.search) {
       const filterPost = posts.filter((post) =>
@@ -93,10 +95,11 @@ const Header = () => {
                   className="absolute inset-0  rounded-full opacity-10 
                 group-hover:opacity-20 transition-opacity duration-300"
                 ></div>
+
                 <img
                   className="block w-10 h-10 transform scale-[2.9] 
-                  group-hover:scale-110 transition-transform duration-300"
-                  src="/logo_transparent.png"
+                   transition-transform duration-300"
+                  src="/logo.png"
                   alt="Logo"
                 />
               </div>
@@ -191,7 +194,7 @@ const Header = () => {
                 </span>
               </button> */}
               {/* Settings */}
-              <button className="hidden sm:flex p-2 rounded-full hover:bg-gray-50 transition-colors duration-300 group relative">
+              {/* <button className="hidden sm:flex p-2 rounded-full hover:bg-gray-50 transition-colors duration-300 group relative">
                 <Settings
                   size={20}
                   className="text-gray-600 group-hover:text-purple-500 transition-colors"
@@ -199,7 +202,7 @@ const Header = () => {
                 <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-gray-500 opacity-0 group-hover:opacity-100 whitespace-nowrap">
                   Configurações
                 </span>
-              </button>
+              </button> */}
               {/* User Profile */}
               <Link
                 to="/perfil"
@@ -209,7 +212,7 @@ const Header = () => {
                 <div className="relative">
                   <div className="size-10 rounded-full overflow-hidden border-2 border-transparent group-hover:border-pink-500 transition-all duration-300">
                     <img
-                      src="/image_perfil.png"
+                      src={img}
                       alt="Perfil"
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
                     />

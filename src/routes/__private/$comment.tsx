@@ -5,6 +5,17 @@ import { Send } from "lucide-react";
 
 export const Route = createFileRoute("/__private/$comment")({
   component: RouteComponent,
+  beforeLoad: () => ({
+    head: {
+      meta: [
+        {
+          title: "Comentarios | Promise",
+          description: "Faça cadastro na plataforma Promise",
+          keywords: "cadastro, autenticação, promise",
+        },
+      ],
+    },
+  }),
 });
 
 function RouteComponent() {

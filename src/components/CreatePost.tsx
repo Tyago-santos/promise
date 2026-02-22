@@ -3,17 +3,22 @@ import { Image, X } from "lucide-react";
 import { useRef, useState, type ChangeEvent } from "react";
 
 import resizeImage from "@/util/lib/resizeImage";
+import { userStore } from "@/store/userStore";
+import { postStore } from "@/store/postStore";
 
 const CreatePost = () => {
   const [postText, setPostText] = useState("");
-  const [, setFileImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const addPost = postStore((state) => state.addPost);
+
+  const img = userStore((state) => state.image_perfil);
 
   const imageRef = useRef<HTMLInputElement>(null);
 
   const handleClickCreatePost = () => {
     if (imagePreview || postText) {
-      posts.push({
+      addPost({
         id: posts.length + 1,
         usuario: "tiago_santos",
         nomeUsuario: "Tiago dos Santos",
@@ -65,7 +70,7 @@ const CreatePost = () => {
           <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow">
             <img
               className="w-full h-full object-cover"
-              src="/image_perfil.png"
+              src={img}
               alt="Imagem de perfil"
             />
           </div>

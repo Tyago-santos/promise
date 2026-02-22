@@ -3,8 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 
 import { type PostType } from "@/api";
-import { memo, useEffect, useState } from "react";
-// import { useReward } from "react-rewards";
+import { memo, useState } from "react";
 
 type PropsType = {
   posts: PostType[];
@@ -12,22 +11,10 @@ type PropsType = {
 
 const PostContent = ({ posts }: PropsType) => {
   const [likedByIndex, setLikedByIndex] = useState<Record<number, boolean>>({});
-  const [postsState, setPostState] = useState<PostType[]>();
+
   // 2. Configurar quais emojis aparecerão
-  // const { reward, isAnimating } = useReward("emojiReward", "emoji", {
-  //   emoji: ["❤️", "💖", "💗", "✨"], // Mix de corações
-  //   startVelocity: 45, // Explosão inicial forte
-  //   elementCount: 40, // Quantidade generosa
-  //   spread: 80, // Abertura do leque
-  //   decay: 0.95, // Mantém a velocidade por um tempo
-  //   elementSize: 25,
-  // });
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setPostState(posts.reverse());
-  }, [postsState]);
 
   const handleLink = (index: number) => {
     const wasLiked = !!likedByIndex[index];
@@ -52,7 +39,7 @@ const PostContent = ({ posts }: PropsType) => {
   };
   return (
     <div className="m-auto max-w-3xl">
-      {postsState?.map((post, i) => (
+      {posts.map((post, i) => (
         <div
           key={post.id}
           className="flex border-gray-200 border-b  pt-2 cursor-pointer px-4 gap-2 "
@@ -119,10 +106,6 @@ const PostContent = ({ posts }: PropsType) => {
                     <FaRegHeart className="text-text size-5" />
                   )}
 
-                  {/* <span
-                    style={{ position: "fixed", top: 0, left: "50%" }}
-                    id="emojiReward"
-                  /> */}
                   {post.likes}
                 </button>
               </div>

@@ -8,6 +8,18 @@ import { allProfiles } from "@/api";
 
 export const Route = createFileRoute("/__private/match")({
   component: RouteComponent,
+
+  beforeLoad: () => ({
+    head: {
+      meta: [
+        {
+          title: "Match | Promise",
+          description: "Faça cadastro na plataforma Promise",
+          keywords: "cadastro, autenticação, promise",
+        },
+      ],
+    },
+  }),
 });
 
 function RouteComponent() {

@@ -1,20 +1,24 @@
-import type { PostType, UserProfile } from "@/api";
+import { type PostType, type UserProfile } from "@/api";
 import PostContent from "./PostContent";
 import { LocateIcon } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 
 type PropsType = {
   posts: PostType[];
   inforPerfil: UserProfile;
+  id: string;
 };
 
-export default function InforPerfil({ posts, inforPerfil }: PropsType) {
+export default function InforPerfil({ posts, inforPerfil, id }: PropsType) {
+  const navigate = useNavigate();
+
   return (
-    <div className="">
-      <div className="h-65 z-99">
+    <div className="m-auto max-w-3xl">
+      <div className="h-130 z-99 ">
         <img className="max-h-full " src="/image_post2.jpg" alt="poster" />
       </div>
 
-      <div className=" bg-white transform -translate-y-30 border-b pt-3 border-gray-200 pb-3    px-4">
+      <div className=" bg-white transform -translate-y-30 md:-translate-y-50 min-h-50  border-b pt-3 border-gray-200 pb-3    px-4">
         <div className="flex justify-between items-center">
           <div
             className="h-20 w-20 -mt-8 rounded-full 
@@ -28,9 +32,16 @@ export default function InforPerfil({ posts, inforPerfil }: PropsType) {
           </div>
 
           <button
+            onClick={() =>
+              navigate({
+                to: "/contact/$chat",
+                params: { chat: id },
+              })
+            }
             className={`
                  hover:bg-gradient-to-r/80 text-white shadow-md hover:shadow-lg 
-                   bg-gradient-to-r from-pink-500 px-2 text-[10px] py-2 rounded-full to-purple-500
+                   bg-gradient-to-r from-pink-500 px-2 text-[10px] py-2 
+                   rounded-full to-purple-500 cursor-pointer
                 `}
           >
             Mandar Mensagem
