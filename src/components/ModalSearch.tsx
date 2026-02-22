@@ -4,7 +4,7 @@ export default function ModalSearch() {
   const posts = useModalSearchSore((state) => state.posts);
 
   return (
-    <div className="fixed  right-5 overflow-scroll  left-5 bg-white top-14 rounded-md bottom-20 z-10000">
+    <div className="fixed md:max-w-3xl md:m-auto  right-5 overflow-y-auto  left-5 bg-white top-14 rounded-md bottom-20 z-10000">
       {posts.map((perfil) => (
         <button
           key={perfil.id}

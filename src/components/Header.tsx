@@ -81,8 +81,8 @@ const Header = () => {
 
   return (
     <>
-      <header>
-        <div className="md:max-w-3xl md:mx-auto px-4 z-45">
+      <header className="sticky top-o right-0 left-0">
+        <div className="md:max-w-3xl md:mx-auto px-4  z-45">
           <nav className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link
@@ -109,14 +109,14 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex flex-col fixed left-10 top-24 gap-10 h-full items-center gap-1">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.path}
                   className={`relative ${!media.matches && item.id === "search" ? "hidden" : "flex"}  flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
                     activeLink === item.id
-                      ? "bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600"
+                      ? "bg-gradient-to-r from-pink-50 to-purple-50 tex t-pink-600"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
                   onClick={() => setActiveLink(item.id)}
@@ -150,7 +150,7 @@ const Header = () => {
               {/* Search Bar (Mobile/Tablet) */}
               <form
                 onSubmit={handleSubmit(handleFomInput)}
-                className="md:hidden relative"
+                className="md:w-[600px]  relative "
               >
                 <Search
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -167,7 +167,7 @@ const Header = () => {
                   {...register("search")}
                   type="text"
                   placeholder="Buscar..."
-                  className="pl-10 pr-4 py-3 bg-gray-50 rounded-full text-sm 
+                  className="pl-10 md:w-full pr-4 py-3 bg-gray-50 rounded-full text-sm 
                   focus:outline-none focus:ring-2 focus:ring-pink-500/20 
                   focus:bg-white w-40"
                 />
@@ -233,7 +233,7 @@ const Header = () => {
         </div>
 
         {/* Mobile Search Bar (Hidden on Desktop) */}
-        <div className="hidden md:hidden border-t border-gray-100 px-4 py-3 bg-white">
+        <div className="hidden border-t border-gray-100 px-4 py-3 bg-white">
           <div className="relative max-w-md mx-auto">
             <Search
               className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"

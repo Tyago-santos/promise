@@ -13,15 +13,15 @@ export default function InforPerfil({ posts, user }: PropsType) {
 
   return (
     <div className="m-auto max-w-3xl">
-      <div className="h-65 md:h-full z-99">
+      <div className="h-70   md:h-full z-99">
         <img
-          className="max-h-full "
+          className="max-h-full max-w-full "
           src={newUser.cover ? newUser.cover : "/image_post1.jpg"}
           alt="poster"
         />
       </div>
 
-      <div className=" bg-white transform -translate-y-30 md:-translate-y-75  min-h-80 border-b pt-3 border-gray-200 pb-3    px-4">
+      <div className=" bg-white transform -translate-y-30 md:-translate-y-75   md:min-h-80 border-b pt-3 border-gray-200 pb-3    px-4">
         <div className="flex justify-between items-center">
           <div
             className="h-20 w-20 -mt-8 rounded-full 

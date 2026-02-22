@@ -42,6 +42,8 @@ function RouteComponent() {
   const addCover = userStore((state) => state.addCoverPerfil);
   const imagePerfil = userStore((state) => state.image_perfil);
 
+  const addImagePerfil = userStore((state) => state.addImagePerfil);
+
   const nameUser = userStore((state) => state.addNamePerfil);
   const bioUser = userStore((state) => state.addBioPerfil);
 
@@ -51,8 +53,9 @@ function RouteComponent() {
       const compressedFile = await resizeImage(file);
 
       const imageSrc = URL.createObjectURL(compressedFile);
-      if (selectedImagePerfil) URL.revokeObjectURL(selectedImagePerfil);
 
+      if (selectedImagePerfil) URL.revokeObjectURL(selectedImagePerfil);
+      addImagePerfil(imageSrc);
       setSelectedImagePerfil(imageSrc);
     }
   };
@@ -102,6 +105,7 @@ function RouteComponent() {
             />
 
             <input
+              className="hidden"
               ref={inputImageRefCover}
               onChange={handleChangeImgCover}
               type="file"
@@ -109,7 +113,7 @@ function RouteComponent() {
             />
           </div>
 
-          <div className=" bg-white transform -translate-y-25   md:-translate-y-75  pt-3 h-30 pb-3    px-4">
+          <div className=" bg-white transform -translate-y-25    md:-translate-y-75  pt-3 h-30 pb-3    px-4">
             <div className="flex justify-between items-center ">
               <div
                 className="h-20 w-20 -mt-8 rounded-full 
@@ -130,7 +134,7 @@ function RouteComponent() {
                 />
 
                 <input
-                  className="hiddem md:hidden"
+                  className="hidden md:hidden"
                   ref={inputImageRefPerfil}
                   onChange={handleChangeImgPerfil}
                   type="file"
