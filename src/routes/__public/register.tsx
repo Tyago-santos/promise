@@ -36,7 +36,6 @@ function App() {
   const naviagte = useNavigate();
   const addName = userStore((state) => state.addNamePerfil);
   const addEmail = userStore((state) => state.addEmailPerfil);
-  const navigate = useNavigate();
   const handleSubmitForm = (data: FormType) => {
     addEmail(data.email);
     addName(data.name);

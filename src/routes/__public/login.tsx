@@ -3,7 +3,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { useForm } from "react-hook-form";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/__public/login")({
   component: App,

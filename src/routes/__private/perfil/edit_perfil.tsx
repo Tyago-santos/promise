@@ -1,7 +1,7 @@
 import HeaderPerfil from "@/components/HeaderPerfil";
 
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { Camera, UserStar, X } from "lucide-react";
+import { Camera } from "lucide-react";
 import { useRef, useState, type ChangeEvent } from "react";
 
 import resizeImage from "@/util/lib/resizeImage";

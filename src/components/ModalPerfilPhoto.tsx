@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, type ChangeEvent } from "react";
 import {
   X,
   Upload,
@@ -31,13 +31,18 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
   const photoContainerRef = useRef<HTMLImageElement>(null);
   const addImage = userStore((state) => state.addImagePerfil);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement> | string) => {
+    if (typeof e === "string") {
+      addImage(e);
+      return;
+    }
+
+    const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result;
-        if (base64String) addImage(base64String);
+        if (typeof base64String === "string") addImage(base64String);
       };
       reader.readAsDataURL(file); // Converte para Base64
     }

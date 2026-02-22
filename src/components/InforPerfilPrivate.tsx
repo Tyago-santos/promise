@@ -3,18 +3,6 @@ import PostContent from "./PostContent";
 import { LocateIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
-type UserType = {
-  name: string;
-  email: string;
-  age: number;
-  genero: string;
-  state: string;
-  city: string;
-  inters: Array<string>;
-  image_perfil: string;
-  bio: string;
-};
-
 type PropsType = {
   posts: PostType[];
   user: string;

@@ -36,7 +36,6 @@ function RouteComponent() {
   }
 
   const [messages, setMessages] = useState<Msg[]>(contacts[1].mensagens);
-  const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   function sendMessage() {
@@ -65,15 +64,6 @@ function RouteComponent() {
       sendMessage();
     }
   };
-
-  useEffect(() => {
-    const handler = () => {
-      setOpen(window.visualViewport!.height < window.innerHeight);
-    };
-
-    window.visualViewport?.addEventListener("resize", handler);
-    return () => window.visualViewport?.removeEventListener("resize", handler);
-  }, []);
 
   //   useEffect(() => {
   //     const media = window.matchMedia("(max-width: 768px)");
