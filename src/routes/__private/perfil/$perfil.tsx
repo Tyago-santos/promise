@@ -5,6 +5,17 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/__private/perfil/$perfil")({
   component: PerfilApp,
+  beforeLoad: () => ({
+    head: {
+      meta: [
+        {
+          title: "Perfil | Promise",
+          description: "Faça cadastro na plataforma Promise",
+          keywords: "cadastro, autenticação, promise",
+        },
+      ],
+    },
+  }),
 });
 
 export default function PerfilApp() {
@@ -18,7 +29,7 @@ export default function PerfilApp() {
   return (
     <main>
       <HeaderPerfil name={profile.name} />
-      <InforPerfil inforPerfil={profile} posts={posts} />
+      <InforPerfil id={String(id)} inforPerfil={profile} posts={posts} />
     </main>
   );
 }

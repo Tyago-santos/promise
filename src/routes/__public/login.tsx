@@ -3,6 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/__public/login")({
   component: App,
@@ -33,8 +34,9 @@ function App() {
   const navigate = useNavigate();
   const [passwordIcon, setPasswordIcon] = useState(false);
 
-  const handleSubmitForm = () => {
-    alert("envou");
+  const handleSubmitForm = (data: FormType) => {
+    navigate({ to: "/", replace: true });
+    localStorage.setItem("auth", data.email);
   };
   // const handleCreatePerfil = () => {
   //   navigate({ to: "/create_person" });
@@ -113,13 +115,6 @@ function App() {
           {errors.email && (
             <p className="text-red-500">{errors.email.message}</p>
           )}
-
-          <Link
-            to="/forget"
-            className="text-text cursor-pointer hover:underline "
-          >
-            Esqueci minha senha
-          </Link>
 
           <input
             className="bg-gradient-to-r from-primary to-secondary 

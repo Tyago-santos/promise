@@ -6,6 +6,17 @@ import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/__private/contact/")({
   component: RouteComponent,
+  beforeLoad: () => ({
+    head: {
+      meta: [
+        {
+          title: "Contatos | Promise",
+          description: "Faça cadastro na plataforma Promise",
+          keywords: "cadastro, autenticação, promise",
+        },
+      ],
+    },
+  }),
 });
 
 type Msg = {

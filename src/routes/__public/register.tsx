@@ -3,6 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { useForm } from "react-hook-form";
+import { userStore } from "@/store/userStore";
 
 export const Route = createFileRoute("/__public/register")({
   component: App,
@@ -32,8 +33,18 @@ function App() {
     formState: { errors },
   } = useForm<FormType>();
   const [passwordIcon, setPasswordIcon] = useState(false);
+  const naviagte = useNavigate();
+  const addName = userStore((state) => state.addNamePerfil);
+  const addEmail = userStore((state) => state.addEmailPerfil);
   const navigate = useNavigate();
-  const handleSubmitForm = () => {};
+  const handleSubmitForm = (data: FormType) => {
+    addEmail(data.email);
+    addName(data.name);
+    naviagte({
+      to: "/create_person",
+      replace: true,
+    });
+  };
 
   return (
     <main className="bg-background ">

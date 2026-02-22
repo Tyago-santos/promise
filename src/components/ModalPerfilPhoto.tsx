@@ -31,6 +31,18 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
   const photoContainerRef = useRef<HTMLImageElement>(null);
   const addImage = userStore((state) => state.addImagePerfil);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        if (base64String) addImage(base64String);
+      };
+      reader.readAsDataURL(file); // Converte para Base64
+    }
+  };
+
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -56,6 +68,7 @@ export default function ModalFotoUnica({ onClose }: PropsType) {
       try {
         const compressedFile: File = await imageCompression(file, options);
         setCompressImage(URL.createObjectURL(compressedFile));
+        if (compressImage) handleImageChange(compressImage);
         setCompressedSize((compressedFile.size / 1024 / 1024).toFixed(2));
       } catch (err) {}
     } else {

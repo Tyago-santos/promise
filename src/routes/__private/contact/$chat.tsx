@@ -14,6 +14,17 @@ type Msg = {
 
 export const Route = createFileRoute("/__private/contact/$chat")({
   component: Chat,
+  beforeLoad: () => ({
+    head: {
+      meta: [
+        {
+          title: "Chat | Promise",
+          description: "Faça cadastro na plataforma Promise",
+          keywords: "cadastro, autenticação, promise",
+        },
+      ],
+    },
+  }),
 });
 
 export default function Chat() {

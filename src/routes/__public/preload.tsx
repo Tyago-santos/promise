@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/__public/preload")({
@@ -12,6 +13,18 @@ export const Route = createFileRoute("/__public/preload")({
   //       replace: true,
   //     });
   //   },
+
+  beforeLoad: () => ({
+    head: {
+      meta: [
+        {
+          title: "Preload | Promise",
+          description: "Faça cadastro na plataforma Promise",
+          keywords: "cadastro, autenticação, promise",
+        },
+      ],
+    },
+  }),
 });
 
 function RouteComponent() {

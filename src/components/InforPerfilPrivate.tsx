@@ -3,18 +3,37 @@ import PostContent from "./PostContent";
 import { LocateIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
-type PropsType = {
-  posts: PostType[];
+type UserType = {
+  name: string;
+  email: string;
+  age: number;
+  genero: string;
+  state: string;
+  city: string;
+  inters: Array<string>;
+  image_perfil: string;
+  bio: string;
 };
 
-export default function InforPerfil({ posts }: PropsType) {
+type PropsType = {
+  posts: PostType[];
+  user: string;
+};
+
+export default function InforPerfil({ posts, user }: PropsType) {
+  const newUser = JSON.parse(user);
+
   return (
     <div className="m-auto max-w-3xl">
       <div className="h-65 md:h-full z-99">
-        <img className="max-h-full " src="/image_post2.jpg" alt="poster" />
+        <img
+          className="max-h-full "
+          src={newUser.cover ? newUser.cover : "/image_post1.jpg"}
+          alt="poster"
+        />
       </div>
 
-      <div className=" bg-white transform -translate-y-30 md:-translate-y-75 border-b pt-3 border-gray-200 pb-3    px-4">
+      <div className=" bg-white transform -translate-y-30 md:-translate-y-75  min-h-80 border-b pt-3 border-gray-200 pb-3    px-4">
         <div className="flex justify-between items-center">
           <div
             className="h-20 w-20 -mt-8 rounded-full 
@@ -22,7 +41,7 @@ export default function InforPerfil({ posts }: PropsType) {
           >
             <img
               className="max-w-full max-h-full    scale-[1.5] "
-              src="/image_perfil.png"
+              src={newUser.img}
               alt="imagem de perfil"
             />
           </div>
@@ -42,29 +61,28 @@ export default function InforPerfil({ posts }: PropsType) {
         <div>
           <div>
             <span className="font-bold my-2 text-xl block font-display">
-              Tiago dos Santos da Silva
+              {newUser.name}
             </span>
-            <span className="font-semibold text-sm font-fans">25 anos</span>
+            <span className="font-semibold text-sm font-fans">
+              {newUser.age} anos
+            </span>
           </div>
 
-          <p className="my-2">
-            Amo viajar, cinema e cachorros. Busco alguem para compartilhar
-            momentos especiais. Dia lindo na praia! ☀️🌊 este é um cometarios
-            sem graça só para escrever besteira. Dia lindo na praia! ☀️🌊 este é
-            um cometarios sem graça só para escrever besteira
-          </p>
+          <p className="my-2">{newUser.bio}</p>
 
           <div className="flex items-center gap-2 text-text">
             <LocateIcon size={20} />
-            Bahia - vitória da conquista
+            {newUser.state} - {newUser.city}
           </div>
 
           <div className="flex gap-2 flex-wrap font-semibold font-display my-3  ">
-            #Esportes #Praia #Musica #Tecnologia
+            {newUser.inters.map((int: string) => (
+              <p>#{int}</p>
+            ))}
           </div>
         </div>
       </div>
-      <div className="transform -translate-y-25  md:-translate-y-70">
+      <div className="transform -translate-y-25 md:-translate-y-50 ">
         <PostContent posts={posts} />
       </div>
     </div>
