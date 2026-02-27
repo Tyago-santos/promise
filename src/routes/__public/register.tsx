@@ -54,7 +54,7 @@ function App() {
 
         <form onSubmit={handleSubmit(handleSubmitForm)} className="md:w-[30%]">
           <h4 className="font-display  text-2xl font-bold text-center my-6 ">
-            Esqueceu a senha
+            Faca seu cadastro
           </h4>
           <input
             {...register("name", {
