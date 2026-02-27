@@ -143,7 +143,7 @@ function App() {
              text-text border-0
              focus:outline-none focus:ring-2 focus:ring-secondary/50"
             type="submit"
-            value="Fazer Login"
+            value="Fazer cadastro"
           />
 
           <div className="mt-3 cursor-pointer text-center w-full ">
