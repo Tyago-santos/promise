@@ -92,6 +92,10 @@ pnpm dev
 
 ## Demonstração
 
+![Promise Home](public/promise-home.gif)
+
+![Promise Perfil](public/promise-perfil.gif)
+
 Link da aplicação:
 (adicione aqui quando tiver deploy)
 
