@@ -2,15 +2,34 @@
 
 ![Logo Promise](public/logo_transparent.png)
 
-Web app de relacionamento voltado para membros de A Igreja de Jesus Cristo dos Santos dos Ultimos Dias.
-O objetivo e permitir que os integrantes possam fazer amizades, namorar e conhecer novas pessoas, respeitando valores e principios da Igreja.
+Aqui está um **modelo de README profissional para o seu projeto Promise**. Esse formato é muito usado em projetos de portfólio no GitHub.
 
 ---
 
-## Visao Geral
+# Promise
 
-O Promise e uma aplicacao web moderna construida com foco em performance, organizacao de codigo e boa experiencia do usuario.
-Ele utiliza tecnologias atuais do ecossistema React para criar interfaces escalaveis e bem estruturadas.
+Web App de relacionamento criado para ajudar pessoas a fazer novas amizades, conhecer novas pessoas e desenvolver relacionamentos de forma saudável dentro de uma comunidade com valores e princípios cristãos.
+
+O projeto foi desenvolvido com foco em **experiência do usuário, performance e organização de código**, utilizando tecnologias modernas do ecossistema React.
+
+---
+
+## Visão Geral
+
+O **Promise** é uma aplicação web que permite que usuários criem perfis, explorem outras pessoas na plataforma e se conectem com quem compartilha interesses e valores semelhantes.
+
+A aplicação foi construída com uma arquitetura moderna de frontend, priorizando **componentização, escalabilidade e performance**.
+
+---
+
+## Funcionalidades
+
+- Criação e gerenciamento de perfil de usuário
+- Explorar e conhecer novas pessoas na plataforma
+- Interface moderna e responsiva
+- Upload e compressão de imagens de perfil
+- Navegação fluida e otimizada
+- Estrutura modular baseada em componentes reutilizáveis
 
 ---
 
@@ -26,24 +45,61 @@ Ele utiliza tecnologias atuais do ecossistema React para criar interfaces escala
 - Lucide React
 - React Icons
 - React Rewards
-- browser-image-compression
-- Vitest
+- Browser Image Compression
 - PNPM
 
 ---
 
-## Como rodar o projeto
+## Aprendizados no Projeto
+
+Durante o desenvolvimento deste projeto foi possível aprofundar conhecimentos em:
+
+- Estruturação de aplicações React escaláveis
+- Gerenciamento de estado global com Zustand
+- Validação e gerenciamento de formulários com React Hook Form
+- Organização de componentes reutilizáveis
+- Otimização de performance em aplicações web
+
+---
+
+## Instalação
+
+Clone o repositório:
 
 ```bash
-# Clonar o repositorio
-git clone https://github.com/Tyago-santos/promise.git
-
-# Entrar na pasta do projeto
-cd promise
-
-# Instalar dependencias
-pnpm add
-
-# Iniciar o servidor de desenvolvimento
-pnpm run dev
+git clone https://github.com/seu-usuario/promise.git
 ```
+
+Entre na pasta do projeto:
+
+```bash
+cd promise
+```
+
+Instale as dependências:
+
+```bash
+pnpm install
+```
+
+Execute o projeto:
+
+```bash
+pnpm dev
+```
+
+---
+
+## Demonstração
+
+Link da aplicação:
+(adicione aqui quando tiver deploy)
+
+---
+
+## Autor
+
+Tiago Santos
+
+GitHub: [https://github.com/Tyago-santos](https://github.com/Tyago-santos)
+LinkedIn: [https://www.linkedin.com/in/tiago-santos-9b8a1b1a0/](https://www.linkedin.com/in/tiago-santos-9b8a1b1a0/)
