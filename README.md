@@ -2,7 +2,7 @@
 
 ![Logo Promise](public/logo_transparent.png)
 
-Aqui está um **modelo de README profissional para o seu projeto Promise**. Esse formato é muito usado em projetos de portfólio no GitHub.
+
 
 ---
 
