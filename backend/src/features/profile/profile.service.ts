@@ -32,6 +32,20 @@ export async function getProfileById(id: number) {
   return serializeProfile(profile);
 }
 
+export async function searchProfiles(query: string, excludeUserId: number) {
+  const profiles = await prisma.user.findMany({
+    where: {
+      id: { not: excludeUserId },
+      name: { contains: query, mode: "insensitive" },
+    },
+    select: profileSelect,
+    take: 10,
+    orderBy: { name: "asc" },
+  });
+
+  return profiles.map(serializeProfile);
+}
+
 export async function updateProfile(userId: number, input: UpdateProfileInput) {
   const { interests, ...rest } = input;
 

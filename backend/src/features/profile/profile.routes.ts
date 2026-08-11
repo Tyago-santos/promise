@@ -6,6 +6,7 @@ import {
   getMyProfileHandler,
   getProfileByIdHandler,
   removePhotoHandler,
+  searchProfilesHandler,
   updateCoverHandler,
   updateProfileHandler,
 } from "@/features/profile/profile.controller.js";
@@ -19,4 +20,5 @@ profileRoutes.patch("/me", updateProfileHandler);
 profileRoutes.patch("/me/cover", upload.single("cover"), updateCoverHandler);
 profileRoutes.post("/me/photos", upload.single("photo"), addPhotoHandler);
 profileRoutes.delete("/me/photos/:photoId", removePhotoHandler);
+profileRoutes.get("/search", searchProfilesHandler);
 profileRoutes.get("/:id", getProfileByIdHandler);

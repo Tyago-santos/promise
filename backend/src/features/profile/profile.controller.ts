@@ -11,6 +11,17 @@ export const getMyProfileHandler = asyncHandler(async (req: Request, res: Respon
   res.json(profile);
 });
 
+export const searchProfilesHandler = asyncHandler(async (req: Request, res: Response) => {
+  if (!req.userId) throw ApiError.unauthorized();
+  const query = typeof req.query.q === "string" ? req.query.q.trim() : "";
+  if (!query) {
+    res.json([]);
+    return;
+  }
+  const profiles = await profileService.searchProfiles(query, req.userId);
+  res.json(profiles);
+});
+
 export const getProfileByIdHandler = asyncHandler(async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) throw ApiError.badRequest("Id inválido");

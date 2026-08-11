@@ -39,6 +39,10 @@ export function getProfileById(id: number): Promise<Profile> {
   return apiFetch<Profile>(`/api/profiles/${id}`);
 }
 
+export function searchProfiles(query: string): Promise<Profile[]> {
+  return apiFetch<Profile[]>(`/api/profiles/search?q=${encodeURIComponent(query)}`);
+}
+
 export function updateMyProfile(input: UpdateProfileInput): Promise<Profile> {
   return apiFetch<Profile>("/api/profiles/me", { method: "PATCH", body: input });
 }

@@ -1,8 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 
-import { useModalSearchSore } from "@/features/feed/hooks/useSearchPostsStore";
 import HeaderNav from "@/shared/components/layout/HeaderNav";
-import ModalSearch from "@/features/feed/components/ModalSearch";
+import ProfileSearchModal from "@/features/profile/components/ProfileSearchModal";
 
 import {
   Menu,
@@ -16,18 +15,18 @@ import {
 import { useState } from "react";
 import type { ReactNode } from "react";
 
-import { usePostsQuery } from "@/features/feed/query/usePostsQuery";
 import { useMyProfileQuery } from "@/features/profile/query/useMyProfileQuery";
+import { useSearchProfilesQuery } from "@/features/profile/query/useSearchProfilesQuery";
 import { useContactsQuery } from "@/features/chat/query/useContactsQuery";
+import { useDebouncedValue } from "@/shared/hooks/useDebouncedValue";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const addModal = useModalSearchSore((state) => state.addModal);
-  const removeModal = useModalSearchSore((state) => state.removeModal);
-  const getPosts = useModalSearchSore((state) => state.getPosts);
-  const modal = useModalSearchSore((state) => state.modal);
+  const debouncedQuery = useDebouncedValue(query, 300);
+  const { data: searchResults, isFetching: isSearching } = useSearchProfilesQuery(debouncedQuery);
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   type NavPath = "/" | "/match" | "/contact" | "/perfil";
@@ -59,35 +58,17 @@ const Header = () => {
     },
   ];
 
-  // const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.value == "") {
-  //     toggleModal(false);
-  //   }
-  // };
-
   const { data: profile } = useMyProfileQuery();
   const img = profile?.photos[0]?.url;
-  const { data: postsData } = usePostsQuery();
-  const posts = postsData?.pages.flat() ?? [];
 
   const handleSearchChange = (value: string) => {
     setQuery(value);
-
-    if (!value.trim()) {
-      removeModal(false);
-      return;
-    }
-
-    const filterPost = posts.filter((post) =>
-      post.author.name.toLocaleLowerCase().includes(value.toLocaleLowerCase()),
-    );
-    getPosts(filterPost);
-    addModal(true);
+    setIsSearchOpen(Boolean(value.trim()));
   };
 
   const handleClearSearch = () => {
     setQuery("");
-    removeModal(false);
+    setIsSearchOpen(false);
   };
 
   return (
@@ -129,7 +110,7 @@ const Header = () => {
                 <input
                   value={query}
                   onChange={(e) => handleSearchChange(e.target.value)}
-                  onFocus={() => query.trim() && addModal(true)}
+                  onFocus={() => query.trim() && setIsSearchOpen(true)}
                   type="text"
                   placeholder="Buscar pessoas..."
                   className="w-full pl-10 pr-9 py-2.5 bg-gray-100 rounded-full text-sm border border-transparent
@@ -214,7 +195,9 @@ const Header = () => {
         </div>
       </header>
 
-      {modal && <ModalSearch onSelect={handleClearSearch} />}
+      {isSearchOpen && (
+        <ProfileSearchModal profiles={searchResults} isLoading={isSearching} onSelect={handleClearSearch} />
+      )}
 
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
