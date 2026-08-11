@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-promise}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-promise}
+      POSTGRES_DB: ${POSTGRES_DB:-promise}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      # host:container - 5433 pra não colidir com um postgres local na 5432
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-promise} -d ${POSTGRES_DB:-promise}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3333
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-promise}:${POSTGRES_PASSWORD:-promise}@postgres:5432/${POSTGRES_DB:-promise}?schema=public}
+      DIRECT_URL: ${DIRECT_URL:-postgresql://${POSTGRES_USER:-promise}:${POSTGRES_PASSWORD:-promise}@postgres:5432/${POSTGRES_DB:-promise}?schema=public}
+      JWT_SECRET: ${JWT_SECRET:-troque-este-valor-por-um-segredo-forte}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      SUPABASE_STORAGE_BUCKET: ${SUPABASE_STORAGE_BUCKET:-photos}
+    ports:
+      - "3333:3333"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
