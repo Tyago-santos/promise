@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Pooler em transaction mode (6543) para a aplicacao.
+  url = env("DATABASE_URL")
+  // Pooler em session mode (5432) para migrations: o transaction mode
+  // nao suporta os comandos que o prisma migrate precisa emitir.
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String
+
+  age       Int?
+  sex       String?
+  city      String?
+  place     String?
+  bio       String?
+  interests String? // lista separada por virgula, ex: "Viagens,Cinema,Praia"
+  coverUrl  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  photos         Photo[]
+  posts          Post[]
+  comments       Comment[]
+  likes          Like[]
+  swipesGiven    Swipe[]   @relation("SwipesGiven")
+  swipesReceived Swipe[]   @relation("SwipesReceived")
+  matchesA       Match[]   @relation("MatchUserA")
+  matchesB       Match[]   @relation("MatchUserB")
+  messages       Message[]
+}
+
+model Photo {
+  id        Int      @id @default(autoincrement())
+  url       String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  description String
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments Comment[]
+  likes    Like[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+
+  postId Int
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  postId Int
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+}
+
+model Swipe {
+  id        Int      @id @default(autoincrement())
+  liked     Boolean
+  createdAt DateTime @default(now())
+
+  swiperId Int
+  swiper   User @relation("SwipesGiven", fields: [swiperId], references: [id], onDelete: Cascade)
+
+  swipedId Int
+  swiped   User @relation("SwipesReceived", fields: [swipedId], references: [id], onDelete: Cascade)
+
+  @@unique([swiperId, swipedId])
+}
+
+model Match {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  userAId Int
+  userA   User @relation("MatchUserA", fields: [userAId], references: [id], onDelete: Cascade)
+
+  userBId Int
+  userB   User @relation("MatchUserB", fields: [userBId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+
+  @@unique([userAId, userBId])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  text      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  matchId Int
+  match   Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  senderId Int
+  sender   User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}
